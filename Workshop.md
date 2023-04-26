@@ -555,7 +555,8 @@ pdal translate ./data/FoxIsland_Clean.laz ./data/FoxIsland_Clean_Thin1m.laz samp
 # Ground Classifications 
 - compare using existing ground classifications vs calculating from scratch (i.e. assume a scenario where the data was provided without classifications)
 
-# Create a DTM
+# Create a DTM/DSM
+- write out a DTM and DSM
 
 # Exercises
 - Using either existing datasets or one of your own, create a Canopy Height Model
