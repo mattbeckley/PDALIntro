@@ -1,0 +1,14 @@
+{
+    "pipeline": [{"type" : "readers.las",
+                  "filename": "../data/OR_WizardIsland.laz"
+                 },
+                 {"type":"filters.reprojection",
+                  "in_srs":"EPSG:2992",
+                  "out_srs":"EPSG:4326"
+                 },
+                 {"type" : "writers.las",
+                  "filename": "../data/OR_WizardIsland_LatLon.laz",
+                  "compression": "laszip",
+                  "a_srs": "EPSG:4326"
+                 }
+                 ]}

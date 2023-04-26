@@ -1,0 +1,15 @@
+{
+    "pipeline": [{"type" : "readers.las",
+                  "filename": "../data/SAF_Ellipsoidal.laz"
+                 },
+                 {"type":"filters.reprojection",
+                  "in_srs":"EPSG:32611",
+                  "out_srs":"+init=EPSG:32611+5703 +geoidgrids=../data/g2003conus.gtx"
+                 },
+                 {"type" : "writers.las",
+                  "filename": "../data/SAF_Geoid.laz",
+                  "compression": "laszip",
+                  "a_srs": "EPSG:32611+5703"
+                 }
+		]
+}
