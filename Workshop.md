@@ -533,9 +533,27 @@ pdal info FoxIsland_Clean.laz --stats --filters.stats.dimensions=Classification 
 
 ![Fox Island Noise Removed](./images/FoxIslandNoise_Clean.png)
 
+# Thinning
+- Point cloud files can often be quite large and cumbersome to work with.  Depending on the objective, it is often useful to thin a dataset in order to make it easier and faster to work with. The [filters.sample](https://pdal.io/en/2.5.3/stages/filters.sample.html#filters-sample) utilizes a Poisson sampling to thin the dataset.
 
-# SMRF filter 
-- generate a ground only dataset.
+```
+pdal translate ./data/FoxIsland_Clean.laz ./data/FoxIsland_Clean_Thin1m.laz sample --filters.sample.radius=1
+```
+
+![Example Thinning output](./images/Thin_Ex.png)
+- Left: Dataset after thinning with 1m radius.  Right: Original dataset before thinning
+
+- Note there are a variety of other methods to decimate data via PDAL:
+    - filters.decimation
+    - filters.fps
+    - filters.relaxationdartthrowing 
+    - filters.voxelcenternearestneighbor 
+    - filters.voxelcentroidnearestneighbor
+    - filters.voxeldownsize
+    
+
+# Ground Classifications & SMRF filter 
+- compare using existing ground classifications vs calculating from scratch (i.e. assume a scenario where the data was provided without classifications)
 
 # Create a DTM
 
