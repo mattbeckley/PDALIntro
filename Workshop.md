@@ -555,8 +555,90 @@ pdal translate ./data/FoxIsland_Clean.laz ./data/FoxIsland_Clean_Thin1m.laz samp
 # Ground Classifications 
 - compare using existing ground classifications vs calculating from scratch (i.e. assume a scenario where the data was provided without classifications)
 
+- Extract only the ground classified points with the following pipeline:
+
+```
+{
+    "pipeline": [
+        "./data/FoxIsland_Clean.laz",
+        {
+            "type": "filters.range",
+            "limits": "Classification[2:2]"
+        },
+        {
+            "type": "writers.las",
+            "compression": "true",
+            "filename":"./data/FoxIsland_Clean_GroundOnly.laz"
+        }
+    ]
+}
+
+>> pdal pipeline ./pipelines/ExtractGround.json
+```
+
+- Inspect the ground-only point cloud with [plas.io](https://plas.io/)
+![Fox Island Ground Only](./images/FoxIsland_GroundOnly.png)
+- Image on the left is the ground only point cloud vs the original dataset on the right
+
+- In some cases we may receive a dataset that has very poor ground classification, or none at all.  In these scenarios it is probably best to re-calculate the ground surface.  Here is more complicated pipeline that demonstrates how to create a ground classification from scratch:
+
+```
+{
+    "pipeline": [
+        "./data/FoxIsland.laz",
+	{
+	    "type":"filters.assign",
+	    "assignment":"Classification[:]=0"
+	},
+	{
+	    "type":"filters.elm"
+	},
+        {
+            "type": "filters.outlier",
+            "method": "statistical",
+            "multiplier": 3,
+            "mean_k": 8
+        },	
+	{
+	    "type":"filters.smrf",
+	    "returns":"last,only",
+	    "ignore":"Classification[7:7]"
+	},
+	{
+	    "type":"filters.range",
+	    "limits":"Classification[2:2]"
+	},	
+        {
+            "type": "writers.las",
+            "compression": "true",
+            "filename":"./data/FoxIsland_CustomGround.laz"
+        }
+    ]
+}
+
+```
+
+- In this pipeline we are starting with a lidar dataset that has all returns included (i.e. trees, buildings, etc), as well as containing a lot of noise.  The first stage of the pipeline sets all classification values to 0 (unclassified) to mimic the scenario of receiving a dataset without any classification values.  
+- The second stage uses the [Extended Local Minimum (ELM) method](https://pdal.io/en/2.5.3/stages/filters.elm.html#filters-elm) to identify low noise points, and classify them as noise (class 7). 
+- The third stage is using the [filters.outlier] filter to remove statistical outliers.  Outliers are set class 7.
+- The fourth stage is using the [Simple Morphological Filter (SMRF)](https://pdal.io/en/2.5.3/stages/filters.smrf.html) to classify points as ground.  There are a couple of important options to set here.  Note instead of using a noise-free input dataset, we instead set the "ignore" option to ignore all values classified as noise.  For this pipeline, the filters.elm, and filters.outlier stages will have output noise values, so we don't want to include those. The other important option is the "returns" option.  When calculating a ground surface it might make sense to only use "last" returns.  However, this can lead to excessive filtering of data because of cases where there is only 1 return (e.g. return from a road).  As a result, it is best to set this parameter to: "returns":"last,only" which will take last returns where available, but also include points that are single returns.  This is the default setting for this parameter in PDAL. A comparison of outputs using "last" vs "last, only" is below.
+- Finally, the last stage does a range filter, and only outputs points classified as ground (class 2).
+
+- Here is a comparison of the ground only dataset using the vendor supplied classes (image on right) vs the "custom" ground classified dataset (image on left) we created from scratch using the SMRF filter:
+
+![Fox Island Ground Classification Methods Comparison](./images/FoxIsland_GroundvsCustom.png)
+
+- Based purely on visual inspection, the SMRF filter does a decent job of creating a ground classified dataset.
+
+- Here is a comparison of using the SMRF filter with only the "last" returns (image on left) vs using both the "last" and "only" returns (image on right).  Using only "last" returns can often filter out too much data:
+
+![Fox Island SMRF comparison](./images/FoxIsland_LastReturnEx.png)
+
 # Create a DTM/DSM
 - write out a DTM and DSM
+
+# Create a Canopy Height Model (CHM)
+
 
 # Exercises
 - Using either existing datasets or one of your own, create a Canopy Height Model
