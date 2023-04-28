@@ -127,7 +127,7 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
 - Pipelines are JSON files that are written out to separate files.  To call the pipeline, specify the [pipeline](https://pdal.io/en/2.5.3/pipeline.html#) command to read in the JSON pipeline and executes the commands:
 
 ```
->> pdal pipeline pipeline_example.json
+>> pdal pipeline ./pipeline/pipeline_example.json
 ```
 
 
@@ -138,12 +138,13 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
 
 
 # Inspecting a file <a name ="inspect"></a>
-- PDAL's info tool is very powerful, and has a lot of options to help interrogate a dataset
+- PDAL's [info application](https://pdal.io/en/2.4.3/apps/info.html) is very powerful, and has a lot of options to help interrogate a dataset
 ```
 pdal info ./data/FoxIsland.laz --metadata
 pdal info ./data/FoxIsland.laz --schema
 pdal info ./data/FoxIsland.laz --summary
 ```
+
 ## Metadata
 Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic info about a file. Using the "--metadata" flag will print out the metadata from the header.
 
@@ -232,7 +233,7 @@ pdal info --schema ./data/FoxIsland.laz
 Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic info about a file.  Utilizing the -p option lets the user print out a specific point from the file
 
 ```
->> pdal info ./data/OR_WizardIsland.laz -p 0
+>> pdal info ./data/FoxIsland.laz -p 0
 
 {
   "file_size": 27167488,
@@ -264,39 +265,50 @@ Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic
 
 ```
 
-
-
-## Classifications
-Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --stats flag and perform filtering to get a summary of the classifications for a given lidar file. For example:
+- Combining PDAL with bash commands to extract just the first 10 elevation points:
 
 ```
->> pdal info ./OR_WizardIsland.laz --stats --filters.stats.dimensions=Classification 
+pdal info ./data/FoxIsland.laz -p 0-10|grep  "Z"|awk '{print $2}' FS=': '
+```
+
+- jq is a command line JSON parser, and can be a useful tool for these types of operations. Note if returning more than one point, specify "[]" to return all the points in the array.:
+
+```
+pdal info ./data/FoxIsland.laz -p 0-10|jq -r .points.point[].Z
+```
+
+## Attribute Statistics.
+Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --stats flag and perform filtering to get a summary of a given attribute for a given lidar file. For example to get a list of all the point classifications and their counts:
+
+```
+>> pdal info ./data/FoxIsland.laz --stats --filters.stats.dimensions=Classification 
    --filters.stats.count=Classification
 {
-  "file_size": 27167488,
-  "filename": "OR_WizardIsland.laz",
-  "now": "2023-04-25T13:22:28-0600",
-  "pdal_version": "2.1.0 (git-version: Release)",
+  "file_size": 18337307,
+  "filename": "./data/FoxIsland.laz",
+  "now": "2023-04-28T14:46:01-0600",
+  "pdal_version": "2.5.3 (git-version: Release)",
   "reader": "readers.las",
   "stats":
   {
     "statistic":
     [
       {
-        "average": 1.621197483,
-        "count": 5878047,
+        "average": 5.633072822,
+        "count": 3100062,
         "counts":
         [
-          "1.000000/4413629",
-          "2.000000/1151988",
-          "9.000000/312430"
+          "1.000000/2524244",
+          "2.000000/474803",
+          "135.000000/69015",
+          "146.000000/32000"
         ],
-        "maximum": 9,
+        "maximum": 146,
         "minimum": 1,
         "name": "Classification",
         "position": 0,
-        "stddev": 1.792156286,
-        "variance": 3.211824153
+        "stddev": 24.4020614,
+        "variance": 595.4606004
       }
     ]
   }
@@ -306,6 +318,9 @@ Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --s
 - Note the counts section displays the lidar classification and its point count per class.
 
 # Exercises <a name ="exercises"></a>
+- Inspect the laz files in the /data directory or download a small dataset of your own from [OpenTopography](https://opentopography.org/)
+- Determine the coordinate system, and classifications present in the data
+- How many return numbers are there for this dataset?  How many first returns? (hint:use method to get information on Classifications, except replace "Classification" with variable for the Return Number.  Not sure what the Return Number variable name is? Use the schema option to find out)
 
 
 
