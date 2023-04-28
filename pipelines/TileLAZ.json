@@ -1,0 +1,16 @@
+{
+  "pipeline": [
+	{
+	    "type" : "readers.las",
+            "filename": "./data/FoxIsland.laz"
+        },
+      {
+	  "type": "filters.splitter",
+	  "length": "500"
+      },
+      {
+	  "type": "writers.las",
+	  "filename": "./data/tile_#.laz"
+    }
+  ]
+}
