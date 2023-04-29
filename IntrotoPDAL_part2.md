@@ -46,7 +46,9 @@
 
 
 # Reprojection <a name ="reprojection"></a>
-- Use the [reprojection filter](https://pdal.io/en/2.4.3/stages/filters.reprojection.html#filters-reprojection) to reproject datasets. The [translate](https://pdal.io/en/2.5.3/apps/translate.html) command can be used for simple conversion of files based on their file extensions. It can also be used for constructing pipelines directly from the command-line:
+- Use the [reprojection filter](https://pdal.io/en/2.4.3/stages/filters.reprojection.html#filters-reprojection) to reproject datasets. The [translate](https://pdal.io/en/2.5.3/apps/translate.html) command can be used for simple conversion of files based on their file extensions. It can also be used for constructing pipelines directly from the command-line.  This is useful for quick one-liner-type commands.  
+
+- quickly reproject a file into geographic coordinates without using a pipeline:
 
 ```
 pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojection --filters.reprojection.out_srs="EPSG:4326"
@@ -134,7 +136,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
 - Point cloud files can often be quite large and cumbersome to work with.  Depending on the objective, it is often useful to thin a dataset in order to make it easier and faster to work with. The [filters.sample](https://pdal.io/en/2.5.3/stages/filters.sample.html#filters-sample) utilizes a Poisson sampling to thin the dataset.
 
 ```
-pdal translate ./data/FoxIsland_Clean.laz ./data/FoxIsland_Clean_Thin1m.laz sample --filters.sample.radius=1
+pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters.sample.radius=1
 ```
 
 ![Example Thinning output](./images/Thin_Ex.png)
@@ -149,7 +151,7 @@ pdal translate ./data/FoxIsland_Clean.laz ./data/FoxIsland_Clean_Thin1m.laz samp
     - filters.voxeldownsize
     
 
-# Creating boundaries of data <a name ="reprojection"></a>
+# Creating boundaries of data <a name ="boundary"></a>
 - Utilizing the info command, the boundary of a dataset can be obtained by simply using the "--boundary" flag.  This will output the boundary in WKT format in JSON-formatted output.
 
 ```
@@ -203,18 +205,36 @@ pdal translate ./data/FoxIsland_Clean.laz ./data/FoxIsland_Clean_Thin1m.laz samp
 
 
 ## Point Density
-- It is often useful to get more detail on the point density for a given dataset.  PDAL has [density](https://pdal.io/en/2.5.3/apps/density.html) command which creates a hexagonal output layer with associated point counts.
+- It is often useful to get more detail on the point density for a given dataset.  PDAL has a [density](https://pdal.io/en/2.5.3/apps/density.html) command which creates a hexagonal output layer with associated point counts.  
 
 ```
-pdal density --filters.hexbin.edge_size=50 ./data.Siuslaw.laz -o ./data/Siuslaw_density50.shp -f "ESRI Shapefile"
+pdal density ./data/Siuslaw.laz -o ./data/Siuslaw_density.shp -f "ESRI Shapefile"
 ```
 
-- The Siuslaw.laz sample dataset is a ground-only dataset which is 
+- To visualize in GIS, colorize by point count.
+
+![Siuslaw Point Density Viz Settings](./images/QGIS_DensityVizSettings.png)
+
+![Siuslaw Point Density Default View](./images/QGIS_DensityVizDefault.png)
+
+- Size of the hexagons can be controlled with the optional parameter, "--filters.hexbin.edge_size"
+
+```
+pdal density --filters.hexbin.edge_size=50 ./data/Siuslaw.laz -o ./data/Siuslaw_density50.shp -f "ESRI Shapefile"
+```
+
+![Siuslaw Point Density Higher Res](./images/QGIS_DensityViz50FT.png)
+
+- NOTE: the Siuslaw.laz sample dataset is a ground-only dataset which is why point density is lower in forested regions.
 
 
 # Exercises <a name ="exercises"></a>
-- Using either existing datasets or one of your own, create a Canopy Height Model
-- 
+- Using the Siuslaw sample dataset (or a dataset of your own) try to do the following:
+  - Thin the dataset 
+  - Reproject the dataset into a UTM projection that is meter-based (e.g. UTM Zone 10N (EPSG:26910))
+  - Build a boundary from the modified dataset 
+  - Note: ./pipelines/Part2_Exercise.json will get you started
+  
  
 
 

@@ -32,7 +32,33 @@
 }
 ```
 
-- This pipeline will create a 2m max geotiff. We use the "max" statistic because we are creating a DSM, so we want the highest valid point in each cell.  To get metadata on this grid, utilize the [gdalinfo](https://gdal.org/programs/gdalinfo.html) command:
+- The default is to grid the "Z" dimension of the data, but this can be changed with the "dimension" options.  For example to grid the Intensity values:
+
+```
+{
+    "pipeline": [
+        "./data/FoxIsland.laz",
+	{
+            "filename":"./data/FoxIsland_Intensity.tif",
+            "gdaldriver":"GTiff",
+            "dimension":"Intensity",
+            "output_type":"max",
+            "resolution":"2.0",
+            "type": "writers.gdal"
+	}
+    ]
+}
+```
+
+- [Geotiff options](https://gdal.org/drivers/raster/gtiff.html) can be passed to the GDAL writer in the form: name=value,name=value,…  For example, to create a tiled and compressed geotiff, which is a [basic Cloud Optimized Geotiff (COG) format](https://www.cogeo.org/in-depth.html), add this line to pipeline:
+
+```
+"gdalopts":"compress=deflate, tiled=yes"
+```
+
+- Cloud Optimized Geotiffs have two main components: internal tiling, and overviews.  Adding compression is also good practice, but technically an uncompressed file can still pass COG-validation. COGs were developed to aid in serving up imagery for webmaps, but have become more important with the advent of cloud computing.  Current versions of PDAL do not seem to have the GDAL drivers to output a COG format directly, but using the "gdalopts" comes pretty close.
+
+- This pipeline created a 2m max geotiff. We use the "max" statistic because we are creating a DSM, so we want the highest valid point in each cell.  To get metadata on this grid, utilize the [gdalinfo](https://gdal.org/programs/gdalinfo.html) command:
 
 ```
  >> gdalinfo FoxIsland_DSM.tif|more
@@ -214,7 +240,7 @@ Band 1 Block=187x5 Type=Float64, ColorInterp=Gray
 - use GDAL raster calculator to difference the DSM and DTM to create a CHM
 
 ```
->> gdal_calc.py -A FoxIsland_DSM.tif -B FoxIsland_DTM.tif --outfile CHM.tif --calc="A-B" --NoDataValue=-9999         
+>> gdal_calc.py -A ./data/FoxIsland_DSM.tif -B ./data/FoxIsland_DTM.tif --outfile ./data/CHM.tif --calc="A-B" --NoDataValue=-9999         
 Traceback (most recent call last):
   File "/Users/beckley/miniconda3/envs/pdalworkshop/lib/python3.11/site-packages/osgeo_utils/auxiliary/gdal_argparse.py", line 175, in main
     self.doit(**kwargs)
@@ -229,7 +255,7 @@ Exception: Error! Dimensions of file FoxIsland_DTM.tif (187, 196) are different 
 - It appears the sizes of the two datasets are different:
 
 ```
->> gdalinfo FoxIsland_DSM.tif|grep -i Size
+>> gdalinfo ./data/FoxIsland_DSM.tif|grep -i Size
 Size is 188, 197
 Pixel Size = (2.000000000000000,-2.000000000000000)
 (pdalworkshop) local:data >> gdalinfo FoxIsland_DTM.tif|grep -i Size
@@ -240,13 +266,13 @@ Pixel Size = (2.000000000000000,-2.000000000000000)
 - The cleaning and filtering of the ground classified dataset has removed some data and caused the bounds of the resulting DTM to be slightly smaller than the DSM, thus causing the error.  To get around this, there is an "extent" parameter in gdal_calc.py where users can specify the boundary extent to use in the calculation.
 
 ```
- gdal_calc.py -A FoxIsland_DSM.tif -B FoxIsland_DTM.tif --outfile CHM.tif --calc="A-B" --NoDataValue=-9999 --extent intersect
+ gdal_calc.py -A ./data/FoxIsland_DSM.tif -B ./data/FoxIsland_DTM.tif --outfile ./data/CHM.tif --calc="A-B" --NoDataValue=-9999 --extent intersect
 ```
 
 - In this case, we use the intersection of the two datasets, but there is also an option to use the union.  Using the intersect, we would expect that the output should be the same dimensions as the smaller grid (in this case the DTM), and it is:
 
 ```
-gdalinfo CHM.tif|grep -i Size
+gdalinfo ./data/CHM.tif|grep -i Size
 Size is 187, 196
 Pixel Size = (2.000000000000000,-2.000000000000000)
 ```
@@ -257,8 +283,8 @@ Pixel Size = (2.000000000000000,-2.000000000000000)
 
 
 # Exercises <a name ="exercises"></a>
+- Try creating a grid of intensity values, and output as a [COG.](https://www.cogeo.org/) (see Part4_Exercise.json)
 - Using either existing datasets or one of your own, create a Canopy Height Model
-- 
  
 
 

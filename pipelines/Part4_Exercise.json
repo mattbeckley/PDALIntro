@@ -1,0 +1,14 @@
+{
+    "pipeline": [{"type" : "readers.las",
+                  "filename": "./data/FoxIsland.laz"
+                 },
+		 {
+		     "filename":"./data/FoxIsland_Intensity_COG.tif",
+		     "gdaldriver":"GTIFF",
+		     "gdalopts":"compress=deflate, tiled=yes",
+		     "dimension":"Intensity",
+		     "output_type":"mean",
+		     "resolution":"2.0",
+		     "type": "writers.gdal"
+		 }	
+                 ]}
