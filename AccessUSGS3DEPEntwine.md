@@ -1,6 +1,7 @@
 # Table of Contents
 1. [Introduction](#intro)
-2. [Data Access](#access)
+2. [EPT Data Access](#access)
+3. [QGIS with Entwine](#qgis)
 
 
 # Introduction <a name ="intro"></a>
@@ -16,7 +17,7 @@
 - [Entwine](https://entwine.io/en/latest/index.html) is open source software from [HOBU, Inc.](https://hobu.co/) that organizes massive point cloud collections into streamable data services.  Entwine builds are completely lossless, so no points, metadata, or precision will be discarded even for terabyte-scale datasets.  The output format produced by entwine is the [Entwine Point Tile (EPT)](https://entwine.io/en/latest/entwine-point-tile.html), which is a simple and flexible octree-based storage format for point cloud data.  This format enables better performance when dealing with web map applications, or cloud computing with large point cloud datasets.
 
 
-# Data Access <a name ="access"></a>
+# EPT Data Access <a name ="access"></a>
 ![USGS 3DEP Coverage](./images/USGS3DEPCoverage_OT.png)
 
 - PDAL provides an [entwine reader](https://pdal.io/en/2.5.3/stages/readers.ept.html#readers-ept) that can easily read the USGS 3DEP data in EPT format. With a simple pipeline, it is fairly straightforward to subset the data from the AWS entwine bucket for a given dataset.  
@@ -52,9 +53,34 @@
    3. Use [OpenTopography](https://portal.opentopography.org/dataCatalog?group=usgs) to get a listing. **Note** we remove the underscores from the names, so these need to be re-added to the EPT URL in the pipeline.
    
    4. The USGS has been migrating the metadata to AWS.  There is a [listing of 3DEP projects](http://prdtnm.s3.amazonaws.com/index.html?prefix=StagedProducts/Elevation/LPC/Projects/), but use caution.  Technically, the entwine AWS bucket is a separate project, and the processing schedule may be different than the "user-pays" bucket.  This can result in data existing in one bucket, but not the other.  Also, on rare occasions, there could be discrepancies in dataset naming conventions that can cause issues.  However, overall it is a good resource to find out more about each of the datasets.
+   
+## Dataset Bounds
+- As part of the conversion of the USGS 3DEP data to the entwine format, HOBU took steps to standardize the datasets. All data had their horizontal coordinate reference system (CRS) converted to web mercator ([EPSG:3857](https://epsg.io/3857)).  Vertical coordinate systems were converted to meters, but were not transformed and were left in their original vertical CRS.  This can sometimes lead to confusion as metadata for some datasets will report units in feet, but the entwine datasets have been converted to meters.
+
+- Because of the size of the 3DEP datasets, and the fact that these are cloud-based resources, it is necessary to subset the data.  The easiest way to do this is with the "bounds" parameter to the [entwine reader](https://pdal.io/en/2.5.3/stages/readers.ept.html#readers-ept).  The bounds are expressed as a string, e.g.: ([xmin, xmax], [ymin, ymax], [zmin, zmax]). If omitted, the entire dataset will be selected. 
+
+- It is probably not obvious to most users what the web-mercator coordinates are for a given area of interest. There are many hacks to get around this, here are a couple:
+   1.  Use [OpenTopography](https://portal.opentopography.org/dataCatalog?group=usgs). Even if you don't want to run the job through OpenTopo, you can select an area, and get the web mercator bounds that can then be used in a custom, local pipeline:
+   ![OpenTopo Get Web Mercator Coords](./images/OT_get3857.png)
+   2. Use QGIS with a basemap. Open Web --> Quick Map Services --> Search QMS.  In the search dialog, enter "google" or "bing" to search for a favorite basemap. Change the basemap projection to Web Mercator by clicking the buttin in the lower-right of the application, and set it to EPSG:3857.  Toggle the mouse position display, and it will show the extent of the map in Web Mercator coordinates.  Copy and paste these coordinates into your pipeline.  **Note** QGIS outputs the coordinates in [xmin,ymin],[xmax,ymax] which is a different convention than the PDAL bounds option, so use caution when pasting the coordinates.
+   ![QGIS get 3857 Extent](./images/QGIS_3857Extent.png)
+   3. The "bounds" parameter for [entwine reader](https://pdal.io/en/2.5.3/stages/readers.ept.html#readers-ept) can be followed by a slash (‘/’) and a spatial reference specification to apply to the bounds. In this manner, users can specify a more memorable coordinate system such as lat/lon values to subset the data.  For example, the pipeline below uses lat/lon coordinates ([EPSG:4326])(https://epsg.io/4326) to subset the ept resource that is in Web Mercator:
+
+    ```
+    {
+      "pipeline": [
+          {
+           "type": "readers.ept",
+           "filename":"https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/ept.json",
+           "bounds": "([-74.045473, -74.04364], [40.68867,40.689866])/EPSG:4326"
+          },
+          "./data/StatueLiberty_4326Search.laz"]
+    }
+
+    ```
 
 ## EPT Filename Convention
-- URLS to the EPT resource can be in an alternate format
+- URLS to the EPT resource can also be witten in an alternate format:
 ```
 {
   "pipeline": [
@@ -68,7 +94,12 @@
 }
 ```
 
+# QGIS with Entwine <a name ="qgis"></a>
+- As of version 3.2 QGIS has the ability to visualize the 3DEP entwine resources directly. Open the Data Source Manager, select Point Cloud from the list on the left and then the Protocol selection under Source Type. Enter the address of the ept.json file as the URI under Protocol:
+
+![QGIS Entwine Viz](./images/QGIS_Entwine.png)
+
 
 # Exercises <a name ="exercises"></a>
 - Try to download data directly from the AWS entwine bucket for an area of your choice.  
-- If available, work through the [OpenTopography notebook: 01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) to generate a DEM from the USGS 3DEP data.
+- If possible, work through the [OpenTopography notebook: 01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) to generate a DEM from the USGS 3DEP data.
