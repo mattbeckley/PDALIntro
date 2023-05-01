@@ -34,20 +34,22 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 
 `jupyter notebook`
 
+**Note** use of the notebooks is optional.
+
 # Example datasets
 - There are some example [LAZ](https://laszip.org/) files under the data directory of the git repo.  However, users are also encouraged to use their own data, or download data from [OpenTopography](https://portal.opentopography.org/datasets).  **Note** for the workshop, it is best to work with smaller files to keep processing times short.  As a rule of thumb, keeping datasets below 5 million points is recommended for quick processing times.
 
 
 # Recommended software
 
-- [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda (see command above)
-- jupyter notebook. Best installed with conda (see command above)
 - GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  Note that starting in version 3.18, QGIS has native point cloud support.
+- jupyter notebook. Best installed with conda (see command above)
+- [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda (see command above)
 
 # Optional
 - As time permits, the workshop will highlight a simplified workflow of how to access USGS 3DEP data from AWS for those who are unfamiliar with working with Jupyter Notebooks.  
 
-- Users who are comfortable with Jupyter Notebooks are encouraged to explore OpenTopography notebooks for working with USGS 3DEP data.  There are a series of notebooks here: https://github.com/OpenTopography/OT_3DEP_Workflows/tree/main/notebooks. As an introduction, it is recommended to start with: 01_3DEP_Generate_DEM_User_AOI.ipynb which will explain how to download USGS 3DEP data, and create a DEM. Follow the instructions for "Option 2: Local Installation", specifically:
+- Users who are comfortable with Jupyter Notebooks are encouraged to explore OpenTopography notebooks for working with USGS 3DEP data.  There are a series of notebooks here: https://github.com/OpenTopography/OT_3DEP_Workflows/tree/main/notebooks. As an introduction, it is recommended to start with: [01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) which will explain how to download USGS 3DEP data, and create a DEM. Follow the instructions for "Option 2: Local Installation", specifically:
 
 ```
 #create new working directory for 3DEP work...
