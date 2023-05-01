@@ -5,9 +5,33 @@
 4. [Exercises](#exercises)
 
 # Point Cloud Visualizations <a name ="pcviz"></a>
-- [Plas.io](https://plas.io/) is a very useful, browser-based tool to visualize point clouds. The current version has one option that may be confusing and a bit unintuitive.  The default is to view all the points as intensity in greyscale.  To view other parameters, move the slider in "Intensity Blending" to the left ("ALL COLOR").
+
+## QGIS
+- Starting in version 3.18, QGIS can natively view point clouds in 2D or 3D. To add a las/laz file, either drag/drop the file into QGIS, or use the "open data source manager" and select "Point Cloud"
+
+![QGIS Add Point Cloud](./images/QGIS_addPC.png)
+
+- QGIS will visualize the point classifications by default.  To visualize other parameters (e.g. "Z"), opent the properties for the point cloud layer.  Change the classification to "Attribute by Ramp", and change the attribute to "Z".
+
+![QGIS visualize Z](./images/QGIS_VizZ.png)
+
+- Within the layer properties menu, the tab in the lower left will display basic statistics on each of the attributes:
+
+![QGIS visualize Z](./images/QGIS_AttributeStats.png)
+
+- To open the 3D viewer, select View --> 3D Map Views --> New 3D Map View.
+
+![QGIS 3D Viz](./images/QGIS_3DViewer.png)
+
+- 3D viewer has some basic tools baked in such as measurement, animations, exporting images, etc.
+
+
+## Plas.io
+- An alternative to QGIS for viewing point clouds is the website [Plas.io](https://plas.io/). [Plas.io](https://plas.io/) is a very useful, browser-based tool to visualize point clouds. The current version has one option that may be confusing and a bit unintuitive.  The default is to view all the points as intensity in greyscale.  To view other parameters, move the slider in "Intensity Blending" to the left ("ALL COLOR").
 
 ![PLAS.IO Viz](./images/PlasIO_Ex.png)
+
+
 
 
 # Filtering<a name ="filter"></a>
@@ -302,7 +326,7 @@ pdal info FoxIsland_Clean.laz --stats --filters.stats.dimensions=Classification 
 
 
 # Exercises<a name ="exercises"></a>
-- Examine some of the sample LAS/LAZ datasets (or your own) in [plas.io](https://plas.io/)
+- Examine some of the sample LAS/LAZ datasets (or your own) in QGIS or [plas.io](https://plas.io/)
 - For sample datasets: OR_WizardIsland.laz or FoxIsland.laz try to output a ground-only laz file
  
 

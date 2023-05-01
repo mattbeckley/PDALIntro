@@ -1,0 +1,10 @@
+{
+  "pipeline": [
+        {
+          "type": "readers.ept",
+          "filename": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/ept.json",
+          "bounds": "([-8242666.7146411305, -8242531.114082908], [4966542.613156153, 4966683.155298185])"
+	},
+      "./data/StatueLiberty.laz"
+  ]
+}
