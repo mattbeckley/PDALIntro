@@ -28,12 +28,14 @@
   "pipeline": [
         {
           "type": "readers.ept",
-          "filename": "ept://https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity",
+          "filename": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/ept.json",
           "bounds": "([-8242666.7146411305, -8242531.114082908], [4966542.613156153, 4966683.155298185])"
 	},
       "./data/StatueLiberty.laz"
   ]
 }
+
+
 ```
 
 ## Dataset Names
@@ -52,13 +54,13 @@
    4. The USGS has been migrating the metadata to AWS.  There is a [listing of 3DEP projects](http://prdtnm.s3.amazonaws.com/index.html?prefix=StagedProducts/Elevation/LPC/Projects/), but use caution.  Technically, the entwine AWS bucket is a separate project, and the processing schedule may be different than the "user-pays" bucket.  This can result in data existing in one bucket, but not the other.  Also, on rare occasions, there could be discrepancies in dataset naming conventions that can cause issues.  However, overall it is a good resource to find out more about each of the datasets.
 
 ## EPT Filename Convention
-
+- URLS to the EPT resource can be in an alternate format
 ```
 {
   "pipeline": [
         {
           "type": "readers.ept",
-          "filename": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity/ept.json",
+          "filename": "ept://https://s3-us-west-2.amazonaws.com/usgs-lidar-public/NY_NewYorkCity",
           "bounds": "([-8242666.7146411305, -8242531.114082908], [4966542.613156153, 4966683.155298185])"
 	},
       "./data/StatueLiberty.laz"

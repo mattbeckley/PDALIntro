@@ -9,7 +9,7 @@
 ## QGIS
 - Starting in version 3.18, QGIS can natively view point clouds in 2D or 3D. To add a las/laz file, either drag/drop the file into QGIS, or use the "open data source manager" and select "Point Cloud"
 
-![QGIS Add Point Cloud](./images/QGIS_addPC.png)
+![QGIS Add Point Cloud](./images/QGIS_AddPC.png)
 
 - QGIS will visualize the point classifications by default.  To visualize other parameters (e.g. "Z"), opent the properties for the point cloud layer.  Change the classification to "Attribute by Ramp", and change the attribute to "Z".
 
