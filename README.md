@@ -7,13 +7,9 @@ users familiar with working from PDAL.  Topics include:
 - Creating ground-classified datasets
 - Gridding point clouds into Digital Elevation Models (DEMs)
 
-
-# Acknowledgements 
-The focus of this workshop is getting users comfortable with basic PDAL commands, and workflows. This workshop is geared to the novice PDAL user. Content for this workshop is based on a subset of two existing PDAL workshops:
-- PDAL's main workshop material: https://pdal.io/en/2.5.3/workshop/index.html
-- Dr. Adam Steer's PDAL workshop from FOSS4G SotM Oceania in 2018: https://github.com/adamsteer/f4g-oceania-pdal
-
-Users are encouraged to explore these two excellent resources for more advanced PDAL usage and examples.
+# Workshop Preparation
+- Users should follow the instructions on the document [Installation.md
+](./Installation.md) to install the necessary and recommended software.
 
 # Workshop Structure
 - The workshop is based on the series of markdown documents in the repo.  Users are expected to have a working copy of PDAL running on their system so that they can copy/paste and experiment with commands on their local PDAL installation.
@@ -22,3 +18,10 @@ Users are encouraged to explore these two excellent resources for more advanced 
 
 # Example datasets
 - There are some example [LAZ](https://laszip.org/) files under the data directory of the git repo.  However, users are also encouraged to use their own data, or download data from [OpenTopography](https://portal.opentopography.org/datasets).  **Note** for the workshop, it is best to work with smaller files to keep processing times short.  As a rule of thumb, keeping datasets below 5 million points is recommended for quick processing times.
+
+# Acknowledgements 
+The focus of this workshop is getting users comfortable with basic PDAL commands, and workflows. This workshop is geared to the novice PDAL user. Content for this workshop is based on a subset of two existing PDAL workshops:
+- PDAL's main workshop material: https://pdal.io/en/2.5.3/workshop/index.html
+- Dr. Adam Steer's PDAL workshop from FOSS4G SotM Oceania in 2018: https://github.com/adamsteer/f4g-oceania-pdal
+
+Users are encouraged to explore these two excellent resources for more advanced PDAL usage and examples.
