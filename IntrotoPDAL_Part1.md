@@ -135,6 +135,7 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
 pdal info ./data/FoxIsland.laz --metadata
 pdal info ./data/FoxIsland.laz --schema
 pdal info ./data/FoxIsland.laz --summary
+pdal info ./data/FoxIsland.laz --stats
 ```
 
 ## Metadata
@@ -312,7 +313,7 @@ Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --s
 # Exercises <a name ="exercises"></a>
 - Inspect the laz files in the /data directory or download a small dataset of your own from [OpenTopography](https://opentopography.org/)
 - Determine the coordinate system, and classifications present in the data
-- How many return numbers are there for this dataset?  How many first returns? (hint:use method to get information on Classifications, except replace "Classification" with variable for the Return Number.  Not sure what the Return Number variable name is? Use the schema option to find out)
+- How many returns are there for your dataset?  How many first returns? (hint:use method to get information on Classifications, except replace "Classification" with variable for the Return Number.  Not sure what the Return Number variable name is? Use the schema option to find out)
 
 
 
