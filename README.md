@@ -16,6 +16,29 @@ users familiar with working from PDAL.  Topics include:
 - Sample PDAL pipelines that are discussed in the docs are available in the pipelines folder.  
 - There is a basic bash-based Jupyter Notebook available for users who are more comfortable working in the Jupyter environment. It contains many of the commands that are presented in the docs, and is intended as another pathway for users to get more comfortable with working with PDAL. 
 
+## Agenda
+- PDAL Overview
+- [Introduction to PDAL - Part 1](./IntrotoPDAL_Part1.md)
+  - PDAL mechanics & basic commands
+  - Inspecting point cloud files with PDAL
+- Break
+- [Introduction to PDAL - Part 2](./IntrotoPDAL_Part2.md)
+  - File I/O
+  - Reprojections
+  - Filter operations
+  - Creating dataset boundaries
+- Lunch
+- [Introduction to PDAL - Part 3](./IntrotoPDAL_Part3.md)
+  - Point Cloud Visualization
+  - Data preparation (e.g. noise filtering)
+  - Creating Ground Classifications (e.g.SMRF filters)
+- Break
+- [Introduction to PDAL - Part 4](./IntrotoPDAL_Part4.md)
+  - Gridding point clouds
+  - GDAL: Raster Math & visualization
+- Optional: [Accessing USGG 3DEP data via AWS](AccessUSGS3DEPEntwine.md)
+
+
 # Example datasets
 - There are some example [LAZ](https://laszip.org/) files under the data directory of the git repo.  However, users are also encouraged to use their own data, or download data from [OpenTopography](https://portal.opentopography.org/datasets).  **Note** for the workshop, it is best to work with smaller files to keep processing times short.  As a rule of thumb, keeping datasets below 5 million points is recommended for quick processing times.
 
