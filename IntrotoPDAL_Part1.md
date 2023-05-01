@@ -1,18 +1,10 @@
 # Table of Contents
-1. [Acknowledgements](#acknowledgements)
-2. [Background](#background)
-3. [Working with PDAL](#work)
-4. [PDAL mechanics](#mechanics)
-5. [Inspecting Files](#inspect)
-6. [Exercises](#exercises)
+1. [Background](#background)
+2. [Working with PDAL](#work)
+3. [PDAL mechanics](#mechanics)
+4. [Inspecting Files](#inspect)
+5. [Exercises](#exercises)
 
-
-# Acknowledgements <a name ="acknowledgements"></a>
-The focus of this workshop is getting users comfortable with basic PDAL commands, and workflows. This workshop is geared to the novice PDAL user. Content for this workshop is based on a subset of two existing PDAL workshops:
-- PDAL's main workshop material: https://pdal.io/en/2.5.3/workshop/index.html
-- Dr. Adam Steer's PDAL workshop from FOSS4G SotM Oceania in 2018: https://github.com/adamsteer/f4g-oceania-pdal
-
-Users are encouraged to explore these two excellent resources for more advanced PDAL usage and examples.
 
 # Background info on PDAL. <a name ="background"></a>
 ![PDAL Logo](./images/PDAL_Logo.png)
