@@ -2,7 +2,8 @@
 1. [Introduction](#intro)
 2. [EPT Data Access](#access)
 3. [QGIS with Entwine](#qgis)
-
+4. [Integrating 3DEP](#integrate)
+5. [Exercises](#exercises)
 
 # Introduction <a name ="intro"></a>
 
@@ -99,7 +100,53 @@
 
 ![QGIS Entwine Viz](./images/QGIS_Entwine.png)
 
+# Integrating 3DEP <a name ="integrate"></a>
+- Based on the basic PDAL tutorials, we can apply additional processing stages to any of the datasets from the USGS 3DEP collection
+
+The following pipeline does the following:
+- Extract data over Devil's Tower Wyoming from the AWS enwtine bucket
+- Reproject the data from the default Web Mercator to UTM Zone 13N
+- Filter the data to just use ground-classified points
+- Write out a ground-classified LAZ file
+- Additionally write out a 2m DTM.
+
+```
+{
+  "pipeline": [
+      {
+          "type": "readers.ept",
+          "filename": "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/WY_FEMA_East_B3_2019/ept.json",
+          "bounds": "([-11657141., -11656509.],[5556970.,5557606. ])"
+      },
+      {
+          "type":"filters.reprojection",
+          "in_srs":"EPSG:3857+5703",
+          "out_srs":"EPSG:32613+5703"
+      },
+      {
+          "type": "filters.range",
+          "limits": "Classification[2:2]"
+      },
+      {
+          "type" : "writers.las",
+          "filename": "./data/DevilsTower_Ground.laz",
+          "compression": "laszip",
+          "a_srs": "EPSG:32613+5703"
+      },
+      {
+          "filename":"./data/DevilsTower_Ground.tif",
+          "gdaldriver":"GTiff",
+          "output_type":"min",
+          "resolution":"2.0",
+          "type": "writers.gdal"
+      }	      
+  ]
+}
+```
+
+- Loading the data into QGIS, here is the point cloud colored by elevation overlaid on a hillshade visualization of the DTM: 
+![Devils Tower](./images/DevilsTower.png)
 
 # Exercises <a name ="exercises"></a>
-- Try to download data directly from the AWS entwine bucket for an area of your choice.  
+- Try to download data directly from the AWS entwine bucket for an area of your choice. Experiment with building your own pipelines. 
 - If possible, work through the [OpenTopography notebook: 01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) to generate a DEM from the USGS 3DEP data.
