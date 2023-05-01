@@ -45,7 +45,9 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 - GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download an install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  Note that starting in version 3.18, QGIS has native point cloud support.
 
 # Optional
-- As time permits we will review how to access USGS 3DEP data from AWS.  OpenTopography has notebooks for these workflows here: https://github.com/OpenTopography/OT_3DEP_Workflows.  Follow the instructions for "Option 2: Local Installation", specifically:
+- As time permits, the workshop will highlight a simplified workflow of how to access USGS 3DEP data from AWS for those who are unfamiliar with working with Jupyter Notebooks.  
+
+- Users who are comfortable with Jupyter Notebooks are encouraged to explore OpenTopography notebooks for working with USGS 3DEP data.  There are a series of notebooks here: https://github.com/OpenTopography/OT_3DEP_Workflows/tree/main/notebooks. As an introduction, it is recommended to start with: 01_3DEP_Generate_DEM_User_AOI.ipynb which will explain how to download USGS 3DEP data, and create a DEM. Follow the instructions for "Option 2: Local Installation", specifically:
 
 ```
 #create new working directory for 3DEP work...
@@ -56,4 +58,3 @@ cd OT_3DEP_Workflows
 conda env create -n 3dep --file environment.yml
 ```
 
-**Note** As time permits, the workshop will highlight a simplified workflow of how to access USGS 3DEP data from AWS for those who are unfamiliar with working with Jupyter Notebooks.  
