@@ -48,6 +48,8 @@ pdal --version
 gdalinfo --version
 ```
 
+**Windows users:** Once installed use the "Anaconda Prompt (miniconda)" to utilize conda in the terminal.
+
 ## Conda Basics <a name ="condabasics"></a>
 - Below are some basic, commonly used conda commands
 
@@ -84,7 +86,6 @@ conda search -c conda-forge lftp
 conda create -n gdal244 -c conda-forge gdal==2.4.4
 ```
 
-Once installed, Windows users should use the "Anaconda Prompt (miniconda)" to utilize conda in the terminal.
 
 # Jupyter Notebook Set Up <a name ="jupyter"></a>
 **Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell. Windows users may be able to run the notebook in a windows terminal session, but this has not been fully tested.
