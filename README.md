@@ -32,12 +32,12 @@ users familiar with working from PDAL.  Topics include:
 - [Introduction to PDAL - Part 3](./IntrotoPDAL_Part3.md)
   - Point Cloud Visualization
   - Data preparation (e.g. noise filtering)
-  - Creating Ground Classifications (e.g.SMRF filters)
+  - Creating Ground Classifications (e.g. SMRF filters)
 - Break
 - [Introduction to PDAL - Part 4](./IntrotoPDAL_Part4.md)
   - Gridding point clouds
   - GDAL: Raster Math & visualization
-- Optional: [Accessing USGG 3DEP data via AWS](AccessUSGS3DEPEntwine.md)
+- Optional: [Accessing USGG 3DEP EPT data via AWS](AccessUSGS3DEPEntwine.md)
 
 
 # Example datasets
