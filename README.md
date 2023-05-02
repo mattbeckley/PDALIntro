@@ -6,6 +6,7 @@ users familiar with working from PDAL.  Topics include:
 - Pre-processing datasets (e.g. thinning, filtering, etc.)
 - Creating ground-classified datasets
 - Gridding point clouds into Digital Elevation Models (DEMs)
+- Generating DEM derviatives and computing differences between DEMs with GDAL
 
 # Workshop Preparation
 - Users should follow the instructions on the document [Installation.md
