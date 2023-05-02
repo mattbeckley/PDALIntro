@@ -5,7 +5,7 @@
 
 - [GDAL](https://gdal.org/download.html#conda). Portions of  the tutorial will utilize GDAL to grid point clouds, look at metadata, perform raster math, etc. It is recommended that users use conda to install GDAL.  Details on how to do this are below.
 
-- [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop.  
+- [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop. **If you are new to to git**, it is recommended to use [git Desktop](https://desktop.github.com/)
     - **NOTE** If it is not possible to install git and clone the repo, users can always download a zip file directly from github repo so that workshop materials are available locally:
 
     ![Github Download Zip](./images/GitDownloadZip.png)
@@ -31,7 +31,18 @@ Install PDAL, GDAL, jq, and jupyter notebook via conda:
 
 `conda install -c conda-forge pdal jq gdal notebook nb_conda_kernels `
 
+To verify your installation of PDAL and GDAL, issue the following commands and you should see the version numbers printed to the terminal:
+
+```
+pdal --version
+gdalinfo --version
+```
+
+Windows users should use the "Anaconda Prompt (miniconda)"
+
 # Jupyter notebook set up
+**Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell. Windows users may be able to run the notebook in a windows terminal session, but this has not been fully tested.
+
 A bash notebook with PDAL commands will be available. Users who wish to use this notebook will need to install the bash_kernel. To enable a bash kernel in a jupyter notebook environment:
 
 `conda activate pdalworkshop`
@@ -42,7 +53,7 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 
 `jupyter notebook`
 
-**Note** use of the notebooks is optional.
+
 
 # Example datasets
 - There are some example [LAZ](https://laszip.org/) files under the data directory of the git repo.  However, users are also encouraged to use their own data, or download data from [OpenTopography](https://portal.opentopography.org/datasets).  **Note** for the workshop, it is best to work with smaller files to keep processing times short.  As a rule of thumb, keeping datasets below 5 million points is recommended for quick processing times.
