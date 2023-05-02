@@ -5,9 +5,10 @@
 
 - [GDAL](https://gdal.org/download.html#conda). Portions of  the tutorial will utilize GDAL to grid point clouds, look at metadata, perform raster math, etc. It is recommended that users use conda to install GDAL.  Details on how to do this are below.
 
-- [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop.  If it is difficult or not possible to install git and clone the repo, users can always download a zip file directly from github repo so that workshop materials are available locally:
+- [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop.  
+    - **NOTE** If it is not possible to install git and clone the repo, users can always download a zip file directly from github repo so that workshop materials are available locally:
 
-![Github Download Zip](./images/GitDownloadZip.png)
+    ![Github Download Zip](./images/GitDownloadZip.png)
 
 
 # Conda set up
@@ -15,9 +16,16 @@ Conda is an open source package management system and environment management sys
 
 Download the conda installer for your OS setup. https://docs.conda.io/en/latest/miniconda.html
 
+![Conda Installers](./images/CondaInstall.png)
+
+- **Note if using Mac OSx** it is probably easiest to use the .pkg file.  Also, if using a newer mac with M1 chips make sure to select that version (i.e. Miniconda3 macOS Apple M1 64-bit pkg) and **NOT** the older intel-based option (Miniconda3 macOS Intel x86 64-bit pkg)
+
+
 After installing conda, create an isolated workspace for this workshop.  
-`conda create --name pdalworkshop`
-`conda activate pdalworkshop`
+```
+conda create --name pdalworkshop
+conda activate pdalworkshop
+```
 
 Install PDAL, GDAL, jq, and jupyter notebook via conda:
 
