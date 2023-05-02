@@ -1,4 +1,13 @@
-# Necessary software
+# Table of Contents
+1. [Necessary Software](#necssary)
+2. [Conda Set Up](#conda)
+   - [Conda Basics](#condabasics)
+3. [Jupyter Notebook Set Up](#jupyter)
+4. [Example Datasets](#data)
+5. [Recommended Software](#recommended)
+6. [Optional Software](#optional)
+
+# Necessary Software <a name ="necssary"></a>
 - Workshop materials will be hosted on the github repo: https://github.com/mattbeckley/PDALIntro  Updates to the workshop will be pushed to this site, so make sure to sync with the latest version before the workshop
 
 - [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It will be used to install most essential command line based software.  Details on how to install miniconda are in the [section below](#conda)
@@ -12,7 +21,7 @@
     ![Github Download Zip](./images/GitDownloadZip.png)
 
 
-# Conda set up <a name ="conda"></a>
+# Conda Set Up <a name ="conda"></a>
 Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. Conda quickly installs, runs, and updates packages and their dependencies. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It is recommended to use miniconda to install PDAL and other packages for this workshop.  
 
 Download the conda installer for your OS setup. https://docs.conda.io/en/latest/miniconda.html
@@ -39,9 +48,45 @@ pdal --version
 gdalinfo --version
 ```
 
+## Conda Basics <a name ="condabasics"></a>
+- Below are some basic, commonly used conda commands
+
+- To verify that conda is installed and running on your system:
+```
+conda --version
+```
+- To get into a workspace:
+```
+conda activate pdalworkshop
+```
+- Similarly, to exit:
+```
+conda deactivate pdalworkshop
+```
+- To get a list of the environments created on your system:
+```
+conda info --envs
+```
+- To clone an existing environment (in this example, "workspace"):
+```
+conda create --name workspace_clone --clone workspace
+```
+- To search for a package to install:
+```
+conda search lftp
+```
+- To search for a package on a specific conda channel:
+```
+conda search -c conda-forge lftp
+```
+- To install a specific version of software:
+```
+conda create -n gdal244 -c conda-forge gdal==2.4.4
+```
+
 Once installed, Windows users should use the "Anaconda Prompt (miniconda)" to utilize conda in the terminal.
 
-# Jupyter notebook set up
+# Jupyter Notebook Set Up <a name ="jupyter"></a>
 **Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell. Windows users may be able to run the notebook in a windows terminal session, but this has not been fully tested.
 
 A bash notebook with PDAL commands will be available. Users who wish to use this notebook will need to install the bash_kernel. To enable a bash kernel in a jupyter notebook environment:
@@ -56,17 +101,17 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 
 
 
-# Example datasets
+# Example Datasets <a name ="data"></a>
 - There are some example [LAZ](https://laszip.org/) files under the data directory of the git repo.  However, users are also encouraged to use their own data, or download data from [OpenTopography](https://portal.opentopography.org/datasets).  **Note** for the workshop, it is best to work with smaller files to keep processing times short.  As a rule of thumb, keeping datasets below 5 million points is recommended for quick processing times.
 
 
-# Recommended software
+# Recommended Software <a name ="recommended"></a>
 
-- GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  Note that starting in version 3.18, QGIS has native point cloud support.
-- jupyter notebook. Best installed with conda ([see conda section above](#conda))
+- GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  **Note that starting in version 3.18, QGIS has native point cloud support.**
+- Jupyter notebook. Best installed with conda ([see conda section above](#conda))
 - [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda (see command above)
 
-# Optional
+# Optional Software <a name ="optional"></a>
 - As time permits, the workshop will highlight a simplified workflow of how to access USGS 3DEP data from AWS for those who are unfamiliar with working with Jupyter Notebooks.  
 
 - Users who are comfortable with Jupyter Notebooks are encouraged to explore OpenTopography notebooks for working with USGS 3DEP data.  There are a series of notebooks here: https://github.com/OpenTopography/OT_3DEP_Workflows/tree/main/notebooks. As an introduction, it is recommended to start with: [01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) which will explain how to download USGS 3DEP data, and create a DEM. Follow the instructions for "Option 2: Local Installation", specifically:
