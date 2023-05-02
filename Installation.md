@@ -1,9 +1,10 @@
 # Necessary software
 - Workshop materials will be hosted on the github repo: https://github.com/mattbeckley/PDALIntro  Updates to the workshop will be pushed to this site, so make sure to sync with the latest version before the workshop
 
-- [PDAL](https://pdal.io/en/2.5.3/about.html). The workshop will follow the markdown tutorials using a command line version of PDAL.  Users are expected to have a working version of PDAL so that they can copy and paste commands from the tutorial into their PDAL installation. It is HIGHLY recommended that users use conda to install PDAL.  Details on how to do this are below
+- [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It will be used to install most essential command line based software.  Details on how to install miniconda are in the [section below](#conda)
+- [PDAL](https://pdal.io/en/2.5.3/about.html). The workshop will follow the markdown tutorials using a command line version of PDAL.  Users are expected to have a working version of PDAL so that they can copy and paste commands from the tutorial into their PDAL installation. It is HIGHLY recommended that users use conda to install PDAL.  Details on how to do this are [below](#conda)
 
-- [GDAL](https://gdal.org/download.html#conda). Portions of  the tutorial will utilize GDAL to grid point clouds, look at metadata, perform raster math, etc. It is recommended that users use conda to install GDAL.  Details on how to do this are below.
+- [GDAL](https://gdal.org/download.html#conda). Portions of  the tutorial will utilize GDAL to grid point clouds, look at metadata, perform raster math, etc. It is recommended that users use conda to install GDAL.  Details on how to do this are [below](#conda).
 
 - [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop. **If you are new to to git**, it is recommended to use [git Desktop](https://desktop.github.com/)
     - **NOTE** If it is not possible to install git and clone the repo, users can always download a zip file directly from github repo so that workshop materials are available locally:
@@ -11,7 +12,7 @@
     ![Github Download Zip](./images/GitDownloadZip.png)
 
 
-# Conda set up
+# Conda set up <a name ="conda"></a>
 Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. Conda quickly installs, runs, and updates packages and their dependencies. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It is recommended to use miniconda to install PDAL and other packages for this workshop.  
 
 Download the conda installer for your OS setup. https://docs.conda.io/en/latest/miniconda.html
@@ -38,7 +39,7 @@ pdal --version
 gdalinfo --version
 ```
 
-Windows users should use the "Anaconda Prompt (miniconda)"
+Once installed, Windows users should use the "Anaconda Prompt (miniconda)" to utilize conda in the terminal.
 
 # Jupyter notebook set up
 **Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell. Windows users may be able to run the notebook in a windows terminal session, but this has not been fully tested.
@@ -62,7 +63,7 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 # Recommended software
 
 - GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  Note that starting in version 3.18, QGIS has native point cloud support.
-- jupyter notebook. Best installed with conda (see command above)
+- jupyter notebook. Best installed with conda ([see conda section above](#conda))
 - [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda (see command above)
 
 # Optional
