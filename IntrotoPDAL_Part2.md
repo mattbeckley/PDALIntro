@@ -46,6 +46,7 @@
 
 
 # Reprojection <a name ="reprojection"></a>
+![Projections](./images/Projections.png)
 - Use the [reprojection filter](https://pdal.io/en/2.4.3/stages/filters.reprojection.html#filters-reprojection) to reproject datasets. The [translate](https://pdal.io/en/2.5.3/apps/translate.html) command can be used for simple conversion of files based on their file extensions. It can also be used for constructing pipelines directly from the command-line.  This is useful for quick one-liner-type commands.  
 
 - quickly reproject a file into geographic coordinates without using a pipeline:
@@ -75,12 +76,22 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
 
 - This will reproject the data to geographic coordinates (Lat/Lon).  Putting the code for the NAVD88 datum in the EPSG code (e.g. 4326+5703) will display the vertical datum info in the metadata.
 
+- PDAL may not always preserve header values, but the "forward" option provides the ability to preserve header values. (e.g. preserving file creation dates)
+
 - note the a_srs controls the coordinate systm that is written to the header.  Make sure that the [EPSG code](https://epsg.io/) that is being written out in the filers.reprojection filter matches what is being set in a_srs. If there is a mismatch, the actual XY data will be in one coordinate system, but the metadata will report a different horizontal coordinate system, and this will lead to lots of errors and confusion.
 
 
 
 
 ## Applying a Geoid
+![Geoids](./images/Geoid_V2.png)
+- Orthometric heights are the plumb line to the geoid, and are orthogonal to the equipotential gravimetric surfaces.  Roughly, the geoid is the surface that best fits global mean sea level.  There are a variety of geoid models available, but for most US applications it will usually be the [National Geodetic Survey's products](https://geodesy.noaa.gov/GEOID/models.shtml) (e.g. GEOID03, GEOID12A, GEOID18, etc.).
+
+- For the continuous US, the geoid is negative and is roughly in the range of -30 to -10.  This can be useful when troubleshooting a dataset.  For example, if you examine a dataset and notice that the elevations are off by this amount, it is pretty certain that either the geoid wasn't applied or improperly applied.
+
+![Geoids](./images/Geoid_Mag.png)
+
+
 - older versions of PDAL would be able to apply a geoid by doing the following:
 
 ```
@@ -106,6 +117,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
 - PDAL leverages PROJ for working with coordinate systems.  This results in standardized coordinate system metadata, which is not always the case with other software. 
 
 # Tiling data<a name ="tiling"></a>
+![Tiles](./images/Tiles.png)
 - It is often useful to tile data when working with a single large datafile to prevent out-of-memory errors.  [Filters.splitter](https://pdal.io/en/2.5.3/stages/filters.splitter.html) is a useful filter that will split a given file into tiles of a given size.  
 
 
@@ -130,7 +142,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
 ```
 
 - This pipeline will split up the file into tiles of 500 m length.  It will increment the filenames until all the tiles are created (i.e. tile_1.laz, tile_2.laz, etc.)
-- With the new [Cloud Optimized Point Cloud (COPC)](https://copc.io/) format, tiling may not be as much of an issue because the format has an internal tiling scheme that makes it more efficient to work with.  Many COPC files are a single large file as a result.
+- With the new [Cloud Optimized Point Cloud (COPC)](https://copc.io/) format, tiling may not be as much of an issue because the format has an internal tiling scheme (similar to COGs) that makes it more efficient to work with.  Many COPC files are a single large file as a result.
 
 # Thinning<a name ="thin"></a>
 - Point cloud files can often be quite large and cumbersome to work with.  Depending on the objective, it is often useful to thin a dataset in order to make it easier and faster to work with. The [filters.sample](https://pdal.io/en/2.5.3/stages/filters.sample.html#filters-sample) utilizes a Poisson sampling to thin the dataset.

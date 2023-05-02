@@ -142,7 +142,8 @@ pdal info ./data/FoxIsland.laz --stats
 Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic info about a file. Using the "--metadata" flag will print out the metadata from the header.
 
 ```
->> pdal info --metadata ./data/OR_WizardIsland.laz
+pdal info --metadata ./data/OR_WizardIsland.laz
+
 {
   "file_size": 27167488,
   "filename": "/Users/beckley/Documents/OT/meetings/RCN_May2023/notebook/data/OR_WizardIsland.laz",
@@ -193,6 +194,7 @@ Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic
 
 ```
 pdal info --schema ./data/FoxIsland.laz
+
 {
   {
   "file_size": 18337307,
@@ -226,7 +228,7 @@ pdal info --schema ./data/FoxIsland.laz
 Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic info about a file.  Utilizing the -p option lets the user print out a specific point from the file
 
 ```
->> pdal info ./data/FoxIsland.laz -p 0
+pdal info ./data/FoxIsland.laz -p 0
 
 {
   "file_size": 27167488,
@@ -274,7 +276,7 @@ pdal info ./data/FoxIsland.laz -p 0-10|jq -r .points.point[].Z
 Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --stats flag and perform filtering to get a summary of a given attribute for a given lidar file. For example to get a list of all the point classifications and their counts:
 
 ```
->> pdal info ./data/FoxIsland.laz --stats --filters.stats.dimensions=Classification 
+pdal info ./data/FoxIsland.laz --stats --filters.stats.dimensions=Classification 
    --filters.stats.count=Classification
 {
   "file_size": 18337307,
@@ -311,7 +313,7 @@ Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --s
 - Note the counts section displays the lidar classification and its point count per class.
 
 # Exercises <a name ="exercises"></a>
-- Inspect the laz files in the /data directory or download a small dataset of your own from [OpenTopography](https://opentopography.org/)
+- Inspect the laz files in the ./data directory or download a small dataset of your own from [OpenTopography](https://opentopography.org/)
 - Determine the coordinate system, and classifications present in the data
 - How many returns are there for your dataset?  How many first returns? (hint:use method to get information on Classifications, except replace "Classification" with variable for the Return Number.  Not sure what the Return Number variable name is? Use the schema option to find out)
 
