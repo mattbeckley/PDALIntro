@@ -111,6 +111,8 @@ The following pipeline does the following:
 - Additionally write out a 2m DTM.
 
 ```
+from ./pipelines/DevilsTower.json
+
 {
   "pipeline": [
       {

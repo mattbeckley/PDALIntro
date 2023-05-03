@@ -87,12 +87,13 @@ conda create -n gdal244 -c conda-forge gdal==2.4.4
 
 
 # Jupyter Notebook Set Up <a name ="jupyter"></a>
-**Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell. Windows users may be able to run the notebook in a windows terminal session, but this has not been fully tested.
+**Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell (NOT for Windows). 
 
 A bash notebook with PDAL commands will be available. Users who wish to use this notebook will need to install the bash_kernel. To enable a bash kernel in a jupyter notebook environment:
 
 `conda activate pdalworkshop`
 
+**FOR NON-WINDOWS USERS ONLY:**
 `pip install bash_kernel ; python -m bash_kernel.install`
 
 - To run the jupyter notebook, run the following command from the notebook location:
@@ -125,3 +126,29 @@ cd OT_3DEP_Workflows
 conda env create -n 3dep --file environment.yml
 ```
 
+# Troubleshooting
+- If having trouble with a conda environment, sometimes it is best to start with a fresh workspace:
+
+```
+#remove old workspace
+conda env remove --name pdalworkspace
+
+#Create a new, fresh workspace and activate it
+conda create --name pdalworkshop2
+conda activate pdalworkshop2
+```
+
+- Occasionally there may be issues when installing a bunch of programs in a single command.  If you encounter errors, it may be worthwhile splitting up the installation, particularly for large packages (e.g. GDAL, PDAL):
+
+```
+#If there are issues, sometimes it helps to run the installs as separate commands.
+conda install -c conda-forge pdal  
+conda install -c conda-forge gdal 
+conda install -c conda-forge jq notebook nb_conda_kernels 
+```
+
+- Your path should be set to include conda automatically in your .profile or .bashrc.  However, if there are problems starting conda, you may need to explicitly set your PATH system variable by putting this in your .profile or .bashrc, depending on your set up:
+
+```
+export PATH="/home/username/miniconda/bin:$PATH"
+```
