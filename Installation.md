@@ -62,7 +62,7 @@ conda activate pdalworkshop
 ```
 - Similarly, to exit:
 ```
-conda deactivate pdalworkshop
+conda deactivate 
 ```
 - To get a list of the environments created on your system:
 ```
@@ -109,7 +109,7 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 
 - GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  **Note that starting in version 3.18, QGIS has native point cloud support.**
 - Jupyter notebook. Best installed with conda ([see conda section above](#conda))
-- [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda (see command above)
+- [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda ([see conda section above](#conda))
 
 # Optional Software <a name ="optional"></a>
 - As time permits, the workshop will highlight a simplified workflow of how to access USGS 3DEP data from AWS for those who are unfamiliar with working with Jupyter Notebooks.  

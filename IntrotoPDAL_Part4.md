@@ -1,7 +1,8 @@
 # Table of Contents
 1. [Create a Raster](#grid)
 2. [Raster Math](#raster_math)
-3. [Exercises](#exercises)
+3. [GDAL Visualization](#gdal_viz)
+4. [Exercises](#exercises)
 
 
 # Create a Raster <a name ="grid"></a>
@@ -279,6 +280,24 @@ Pixel Size = (2.000000000000000,-2.000000000000000)
 
 - If we load this raster into QGIS, we get a nice CHM highlighting the trees in this area:
 ![Fox Island CHM](./images/FoxIsland_CHM.png)
+
+
+# GDAL Visualization <a name ="gdal_viz"></a>
+- The [gdaldem](https://gdal.org/programs/gdaldem.html) application is a quick and easy way to visualize raster products such as
+   - Hillshade
+   - Slope
+   - Aspect
+   - Roughness
+   
+```
+gdaldem hillshade ./data/FoxIsland_DSM.tif ./data/FoxIsland_DSM_HS.tif -z 1 -az 315 -alt 45 
+```
+
+- Experiment with some of the different parameters.  For example, try out the "multidirectional" option
+
+```
+gdaldem hillshade ./data/FoxIsland_DSM.tif ./data/FoxIsland_DSM_HSMulti.tif -z 1 -multidirectional
+```
 
 
 

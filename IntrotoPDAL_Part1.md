@@ -69,6 +69,17 @@ count = pipeline.execute() # run the pipeline
 
 - Could also integrate calls to PDAL from within python scripts by using the [subprocess module](https://docs.python.org/3/library/subprocess.html)
 
+- For example, here is python pseudocode to loop over a series of LAZ files and output the metadata to a text file
+```
+import subprocess
+from subprocess import PIPE
+
+out_meta = "output_metadata.txt"
+for i,f in enumerate(files):
+    cmd2 = ['pdal info \"'+f+'\" --metadata >> '+out_meta]
+      p2 = subprocess.run(cmd2,shell=True,stderr=subprocess.PIPE)
+```
+
 
 # PDAL mechanics <a name ="mechanics"></a>
 
