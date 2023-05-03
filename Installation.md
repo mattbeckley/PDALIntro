@@ -29,7 +29,7 @@ Download the conda installer for your OS setup. https://docs.conda.io/en/latest/
 - **Note if using Mac OSx** it is probably easiest to use the **.pkg file**.  Also, if using a newer mac with M1 chips make sure to select that version (i.e. Miniconda3 macOS Apple M1 64-bit pkg) and **NOT** the older intel-based option (Miniconda3 macOS Intel x86 64-bit pkg)
 
 
-After installing conda, create an isolated workspace for this workshop. **Windows users:** Once installed use the "Anaconda Prompt (miniconda)" to utilize conda in the terminal.
+After installing conda, create an isolated workspace for this workshop. **Windows users:** Once installed use the "Anaconda Prompt (miniconda)" available under Programs > Miniconda3 to utilize conda in the terminal.
 
 ```
 conda create --name pdalworkshop
