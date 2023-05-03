@@ -1,12 +1,12 @@
 # Table of Contents
 1. [Necessary Software](#necssary)
-2. [Conda Set Up](#conda)
-   - [Conda Basics](#condabasics)
+2. [Conda Set Up](#conda) 
 3. [Jupyter Notebook Set Up](#jupyter)
 4. [Example Datasets](#data)
 5. [Recommended Software](#recommended)
 6. [Optional Software](#optional)
 7. [Troubleshooting](#troubleshooting)
+8. [Conda Basics](#condabasics)
 
 # Necessary Software <a name ="necssary"></a>
 - Workshop materials will be hosted on the github repo: https://github.com/mattbeckley/PDALIntro  Updates to the workshop will be pushed to this site, so make sure to sync with the latest version before the workshop
@@ -45,42 +45,6 @@ To verify your installation of PDAL and GDAL, issue the following commands and y
 ```
 pdal --version
 gdalinfo --version
-```
-
-## Conda Basics <a name ="condabasics"></a>
-- Below are some basic, commonly used conda commands
-
-- To verify that conda is installed and running on your system:
-```
-conda --version
-```
-- To get into a workspace:
-```
-conda activate pdalworkshop
-```
-- Similarly, to exit:
-```
-conda deactivate 
-```
-- To get a list of the environments created on your system:
-```
-conda info --envs
-```
-- To clone an existing environment (in this example, "workspace"):
-```
-conda create --name workspace_clone --clone workspace
-```
-- To search for a package to install:
-```
-conda search lftp
-```
-- To search for a package on a specific conda channel:
-```
-conda search -c conda-forge lftp
-```
-- To install a specific version of software:
-```
-conda create -n gdal244 -c conda-forge gdal==2.4.4
 ```
 
 
@@ -149,4 +113,40 @@ conda install -c conda-forge jq notebook nb_conda_kernels
 
 ```
 export PATH="/home/username/miniconda/bin:$PATH"
+```
+
+# Conda Basics <a name ="condabasics"></a>
+- Below are some basic, commonly used conda commands
+
+- To verify that conda is installed and running on your system:
+```
+conda --version
+```
+- To get into a workspace:
+```
+conda activate pdalworkshop
+```
+- Similarly, to exit:
+```
+conda deactivate 
+```
+- To get a list of the environments created on your system:
+```
+conda info --envs
+```
+- To clone an existing environment (in this example, "workspace"):
+```
+conda create --name workspace_clone --clone workspace
+```
+- To search for a package to install:
+```
+conda search lftp
+```
+- To search for a package on a specific conda channel:
+```
+conda search -c conda-forge lftp
+```
+- To install a specific version of software:
+```
+conda create -n gdal244 -c conda-forge gdal==2.4.4
 ```
