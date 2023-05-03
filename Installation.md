@@ -6,6 +6,7 @@
 4. [Example Datasets](#data)
 5. [Recommended Software](#recommended)
 6. [Optional Software](#optional)
+7. [Troubleshooting](#troubleshooting)
 
 # Necessary Software <a name ="necssary"></a>
 - Workshop materials will be hosted on the github repo: https://github.com/mattbeckley/PDALIntro  Updates to the workshop will be pushed to this site, so make sure to sync with the latest version before the workshop
@@ -126,7 +127,7 @@ cd OT_3DEP_Workflows
 conda env create -n 3dep --file environment.yml
 ```
 
-# Troubleshooting
+# Troubleshooting <a name ="troubleshooting"></a>
 - If having trouble with a conda environment, sometimes it is best to start with a fresh workspace:
 
 ```
