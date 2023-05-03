@@ -1,28 +1,25 @@
 # Table of Contents
 1. [Necessary Software](#necssary)
-2. [Conda Set Up](#conda) 
-3. [Jupyter Notebook Set Up](#jupyter)
-4. [Example Datasets](#data)
-5. [Recommended Software](#recommended)
-6. [Optional Software](#optional)
-7. [Troubleshooting](#troubleshooting)
-8. [Conda Basics](#condabasics)
+2. [Step 1: Conda Set Up](#conda) 
+3. [Step 2: Clone or Download Git Repo](#git)
+4. [Step 3: Recommended Software](#recommended)
+5. [Step 4: Optional Jupyter Notebook Set Up](#jupyter)
+6. [Example Datasets](#data)
+7. [Optional Software](#optional)
+8. [Troubleshooting](#troubleshooting)
+9. [Conda Basics](#condabasics)
 
 # Necessary Software <a name ="necssary"></a>
-- Workshop materials will be hosted on the github repo: https://github.com/mattbeckley/PDALIntro  Updates to the workshop will be pushed to this site, so make sure to sync with the latest version before the workshop
-
 - [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It will be used to install most essential command line based software.  Details on how to install miniconda are in the [section below](#conda)
+- Workshop materials will be hosted on the github repo: https://github.com/mattbeckley/PDALIntro  Updates to the workshop will be pushed to this site, so make sure to sync with the latest version before the workshop (see section: [Clone or Download Git Repo](#git))
 - [PDAL](https://pdal.io/en/2.5.3/about.html). The workshop will follow the markdown tutorials using a command line version of PDAL.  Users are expected to have a working version of PDAL so that they can copy and paste commands from the tutorial into their PDAL installation. It is HIGHLY recommended that users use conda to install PDAL.  Details on how to do this are [below](#conda)
 
 - [GDAL](https://gdal.org/download.html#conda). Portions of  the tutorial will utilize GDAL to grid point clouds, look at metadata, perform raster math, etc. It is recommended that users use conda to install GDAL.  Details on how to do this are [below](#conda).
 
-- [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop. **If you are new to to git**, it is recommended to use [git Desktop](https://desktop.github.com/)
-    - **NOTE** If it is not possible to install git and clone the repo, users can always download a zip file directly from github repo so that workshop materials are available locally:
 
-    ![Github Download Zip](./images/GitDownloadZip.png)
+    
 
-
-# Conda Set Up <a name ="conda"></a>
+# Step 1: Conda Set Up <a name ="conda"></a>
 Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. Conda quickly installs, runs, and updates packages and their dependencies. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It is recommended to use miniconda to install PDAL and other packages for this workshop.  
 
 Download the conda installer for your OS setup. https://docs.conda.io/en/latest/miniconda.html
@@ -36,9 +33,9 @@ conda create --name pdalworkshop
 conda activate pdalworkshop
 ```
 
-Install PDAL, GDAL, jq, and jupyter notebook via conda:
+Install PDAL, GDAL, jq via conda:
 
-`conda install -c conda-forge pdal jq gdal notebook nb_conda_kernels `
+`conda install -c conda-forge pdal jq gdal`
 
 To verify your installation of PDAL and GDAL, issue the following commands and you should see the version numbers printed to the terminal:
 
@@ -47,13 +44,31 @@ pdal --version
 gdalinfo --version
 ```
 
+# Step 2: Clone or Download Git Repo <a name ="git"></a>
+- All the workshop materials: tutorials, sample data, sample pipelines, etc are in the repo: https://github.com/mattbeckley/PDALIntro
+- Users familiar with git should clone this repo
+- Users unable to download or install git can always download a zip file directly from github repo so that workshop materials are available locally:
 
-# Jupyter Notebook Set Up <a name ="jupyter"></a>
+    ![Github Download Zip](./images/GitDownloadZip.png)
+
+
+# Step 3: Recommended Software <a name ="recommended"></a>
+
+- GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  **Note that starting in version 3.18, QGIS has native point cloud support.**
+- [git](https://github.com/git-guides/install-git). Cloning of the [git repo for this workshop](https://github.com/mattbeckley/PDALIntro) is recommended so that users have local access to the data, pipelines, and markdown documents for the workshop. **If you are new to to git**, it is recommended to use [git Desktop](https://desktop.github.com/)
+- Jupyter notebook. Best installed with conda ([see Optional Jupyter Notebook Set Up](#jupyter))
+- [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda ([see conda section above](#conda))
+
+
+# Step 4: Optional Jupyter Notebook Set Up <a name ="jupyter"></a>
 **Note** For this workshop, use of the notebooks is optional and is designed for use with bash shell (NOT for Windows). 
 
 A bash notebook with PDAL commands will be available. Users who wish to use this notebook will need to install the bash_kernel. To enable a bash kernel in a jupyter notebook environment:
 
-`conda activate pdalworkshop`
+```
+conda activate pdalworkshop
+conda install -c conda-forge notebook nb_conda_kernels `
+```
 
 **FOR NON-WINDOWS USERS ONLY:**
 `pip install bash_kernel ; python -m bash_kernel.install`
@@ -68,13 +83,8 @@ A bash notebook with PDAL commands will be available. Users who wish to use this
 - There are some example [LAZ](https://laszip.org/) files under the data directory of the git repo.  However, users are also encouraged to use their own data, or download data from [OpenTopography](https://portal.opentopography.org/datasets).  **Note** for the workshop, it is best to work with smaller files to keep processing times short.  As a rule of thumb, keeping datasets below 5 million points is recommended for quick processing times.
 
 
-# Recommended Software <a name ="recommended"></a>
-
-- GIS.  It will be useful to have a GIS (e.g. QGIS, ArcGIS, Global Mapper) to visualize some of the raster outputs.  Users who do not have a GIS can download and install the freely available QGIS software: https://www.qgis.org/en/site/forusers/download.html  **Note that starting in version 3.18, QGIS has native point cloud support.**
-- Jupyter notebook. Best installed with conda ([see conda section above](#conda))
-- [jq](https://stedolan.github.io/jq/): a useful JSON parser.  Best installed with conda ([see conda section above](#conda))
-
 # Optional Software <a name ="optional"></a>
+
 - As time permits, the workshop will highlight a simplified workflow of how to access USGS 3DEP data from AWS for those who are unfamiliar with working with Jupyter Notebooks.  
 
 - Users who are comfortable with Jupyter Notebooks are encouraged to explore OpenTopography notebooks for working with USGS 3DEP data.  There are a series of notebooks here: https://github.com/OpenTopography/OT_3DEP_Workflows/tree/main/notebooks. As an introduction, it is recommended to start with: [01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) which will explain how to download USGS 3DEP data, and create a DEM. Follow the instructions for "Option 2: Local Installation", specifically:
