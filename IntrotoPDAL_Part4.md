@@ -57,6 +57,8 @@
 "gdalopts":"compress=deflate, tiled=yes"
 ```
 
+![Raster Pyramids](./images/Pyramids_Tiles.png)
+
 - Cloud Optimized Geotiffs have two main components: internal tiling, and overviews.  Adding compression is also good practice, but technically an uncompressed file can still pass COG-validation. COGs were developed to aid in serving up imagery for webmaps, but have become more important with the advent of cloud computing.  Current versions of PDAL do not seem to have the GDAL drivers to output a COG format directly, but using the "gdalopts" comes pretty close.
 
 - This pipeline created a 2m max geotiff. We use the "max" statistic because we are creating a DSM, so we want the highest valid point in each cell.  To get metadata on this grid, utilize the [gdalinfo](https://gdal.org/programs/gdalinfo.html) command:
@@ -288,22 +290,36 @@ Pixel Size = (2.000000000000000,-2.000000000000000)
    - Slope
    - Aspect
    - Roughness
-   
+
+- Using a sample dataset over Devil's Tower, Wyoming that was generated from the USSG 3DEP Entwine collection we can quickly and easily generate some visualizations from the command line using GDAL's gdaldem tool:
+
 ```
-gdaldem hillshade ./data/FoxIsland_DSM.tif ./data/FoxIsland_DSM_HS.tif -z 1 -az 315 -alt 45 
+gdaldem hillshade ./data/DevilsTower_Ground.tif ./data/DevilsTower_Ground_HS.tif -z 1 -az 315 -alt 45 
 ```
 
 - Experiment with some of the different parameters.  For example, try out the "multidirectional" option
 
 ```
-gdaldem hillshade ./data/FoxIsland_DSM.tif ./data/FoxIsland_DSM_HSMulti.tif -z 1 -multidirectional
+gdaldem hillshade ./data/DevilsTower_Ground.tif ./data/DevilsTower_Ground_HSMulti.tif -z 1 -multidirectional
 ```
 
+- Note the subtle differences in the hillshading methods with the multidirectional version on the left and the standard hillshade method on the right:
+
+![DevilsTower Hillshade](./images/DevilsTowerHSCompare.png)
+
+- Generating a slope grid is also quite simple:
+
+```
+gdaldem slope ./data/DevilsTower_Ground.tif ./data/DevilsTower_Ground_Slope.tif
+```
+
+![DevilsTower Slope](./images/DevilsTower_Slope.png)
 
 
 # Exercises <a name ="exercises"></a>
 - Try creating a grid of intensity values, and output as a [COG.](https://www.cogeo.org/) (see Part4_Exercise.json)
-- Using either existing datasets or one of your own, create a Canopy Height Model
+- Create a hillshade grid with a custom elevation or azimuth angle.  Or create an aspect grid.  Refer to [gdaldem docs](https://gdal.org/programs/gdaldem.html) for available parameters.
+- Using either existing datasets or one of your own, create a Canopy Height Model from a lidar point cloud.
  
 
 

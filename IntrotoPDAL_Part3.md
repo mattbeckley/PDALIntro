@@ -11,7 +11,7 @@
 
 ![QGIS Add Point Cloud](./images/QGIS_AddPC.png)
 
-- QGIS will visualize the point classifications by default.  To visualize other parameters (e.g. "Z"), opent the properties for the point cloud layer.  Change the classification to "Attribute by Ramp", and change the attribute to "Z".
+- QGIS will visualize the point classifications by default.  To visualize other parameters (e.g. "Z"), open the properties for the point cloud layer.  Change the classification to "Attribute by Ramp", and change the attribute to "Z".
 
 ![QGIS visualize Z](./images/QGIS_VizZ.png)
 

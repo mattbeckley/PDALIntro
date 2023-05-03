@@ -26,10 +26,7 @@
 Conda is an open source package management system and environment management system that runs on Windows, macOS and Linux. Conda quickly installs, runs, and updates packages and their dependencies. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is a free, light-weight version of conda.  It is recommended to use miniconda to install PDAL and other packages for this workshop.  
 
 Download the conda installer for your OS setup. https://docs.conda.io/en/latest/miniconda.html
-
-![Conda Installers](./images/CondaInstall.png)
-
-- **Note if using Mac OSx** it is probably easiest to use the .pkg file.  Also, if using a newer mac with M1 chips make sure to select that version (i.e. Miniconda3 macOS Apple M1 64-bit pkg) and **NOT** the older intel-based option (Miniconda3 macOS Intel x86 64-bit pkg)
+- **Note if using Mac OSx** it is probably easiest to use the **.pkg file**.  Also, if using a newer mac with M1 chips make sure to select that version (i.e. Miniconda3 macOS Apple M1 64-bit pkg) and **NOT** the older intel-based option (Miniconda3 macOS Intel x86 64-bit pkg)
 
 
 After installing conda, create an isolated workspace for this workshop. **Windows users:** Once installed use the "Anaconda Prompt (miniconda)" to utilize conda in the terminal.
