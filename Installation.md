@@ -47,7 +47,7 @@ gdalinfo --version
 # Step 2: Clone or Download Git Repo <a name ="git"></a>
 - All the workshop materials: tutorials, sample data, sample pipelines, etc are in the repo: https://github.com/mattbeckley/PDALIntro
 - Users familiar with git should clone this repo
-- Users unable to download or install git can always download a zip file directly from github repo so that workshop materials are available locally:
+- If you are unfamiliar with git or unable to install it, you can download a zip file directly from Github repo so that workshop materials are available locally:
 
     ![Github Download Zip](./images/GitDownloadZip.png)
 
