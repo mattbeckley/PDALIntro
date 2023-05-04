@@ -47,15 +47,18 @@
 
 # Reprojection <a name ="reprojection"></a>
 ![Projections](./images/Projections.png)
-- Use the [reprojection filter](https://pdal.io/en/2.4.3/stages/filters.reprojection.html#filters-reprojection) to reproject datasets. The [translate](https://pdal.io/en/2.5.3/apps/translate.html) command can be used for simple conversion of files based on their file extensions. It can also be used for constructing pipelines directly from the command-line.  This is useful for quick one-liner-type commands.  
-
-- quickly reproject a file into geographic coordinates without using a pipeline:
+- PDAL uses the [reprojection filter](https://pdal.io/en/2.4.3/stages/filters.reprojection.html#filters-reprojection) to reproject datasets. The [translate](https://pdal.io/en/2.5.3/apps/translate.html) command can be used for simple conversion of files based on their file extensions. It can also be used for constructing pipelines directly from the command-line.  This is useful for quick one-liner-type commands.  
+- PDALs leverage of [PROJ](https://proj.org/) provides standardized metadata, and simplifies input by allowing standardized input (e.g. [proj.4 strings](https://proj.org/faq.html#what-happened-to-proj-4), [EPSG codes](https://epsg.io/), WKT, etc)
+- Sites like https://epsg.io/ are useful to output a coordinate reference system in a variety of formats
+- Quickly reproject a file into geographic coordinates without using a pipeline:
 
 ```
 pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojection --filters.reprojection.out_srs="EPSG:4326"
 ```
 
-- When using more options, it makes sense to use a pipeline instead:
+- When using more options, it makes sense to use a pipeline instead.  
+
+- From ./pipelines/Reproject_Ex.json:
 ```
 {
 "pipeline": [{"type" : "readers.las",
@@ -120,7 +123,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
 ![Tiles](./images/Tiles.png)
 - It is often useful to tile data when working with a single large datafile to prevent out-of-memory errors.  [Filters.splitter](https://pdal.io/en/2.5.3/stages/filters.splitter.html) is a useful filter that will split a given file into tiles of a given size.  
 
-
+- From ./pipelines/TileLAZ.json:
 ```
 {
   "pipeline": [
@@ -142,14 +145,37 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
 ```
 
 - This pipeline will split up the file into tiles of 500 m length.  It will increment the filenames until all the tiles are created (i.e. tile_1.laz, tile_2.laz, etc.)
-- With the new [Cloud Optimized Point Cloud (COPC)](https://copc.io/) format, tiling may not be as much of an issue because the format has an internal tiling scheme (similar to COGs) that makes it more efficient to work with.  Many COPC files are a single large file as a result.
+- With the new [Cloud Optimized Point Cloud (COPC)](https://copc.io/) format, tiling may not be as much of an issue because the format has an internal tiling scheme (similar to [COGs](https://www.cogeo.org/in-depth.html)) that makes it more efficient to work with.  Many COPC files are a single large file as a result.
 
 # Thinning<a name ="thin"></a>
 - Point cloud files can often be quite large and cumbersome to work with.  Depending on the objective, it is often useful to thin a dataset in order to make it easier and faster to work with. The [filters.sample](https://pdal.io/en/2.5.3/stages/filters.sample.html#filters-sample) utilizes a Poisson sampling to thin the dataset.
 
+- To run as a quick one-liner:
 ```
 pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters.sample.radius=1
 ```
+
+- To run as a pipeline (./pipelines/Thin_Ex.json):
+```
+{
+  "pipeline": [
+        {
+            "type" : "readers.las",
+            "filename": "./data/FoxIsland.laz"
+        },
+      {
+          "type": "filters.sample",
+          "radius": "1"
+      },
+      {
+          "type": "writers.las",
+          "filename": "./data/FoxIsland_Thin.laz"
+    }
+  ]
+}
+```
+
+- Note: The "radius" options is the minimum distance between samples.  Therefore, larger values for radius will remove more points.
 
 ![Example Thinning output](./images/Thin_Ex.png)
 - Left: Dataset after thinning with 1m radius.  Right: Original dataset before thinning

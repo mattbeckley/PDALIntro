@@ -3,7 +3,8 @@
 2. [Working with PDAL](#work)
 3. [PDAL mechanics](#mechanics)
 4. [Inspecting Files](#inspect)
-5. [Exercises](#exercises)
+5. [Classifications](#classifications)
+6. [Exercises](#exercises)
 
 
 # Background info on PDAL. <a name ="background"></a>
@@ -11,7 +12,7 @@
 
 - PDAL is one of the few open source tools to work with point cloud data
 - LasTools is "mostly" free, but advanced usage requires payment.
-- PDAL also utilizes and aligns nicely with other open source tools such as GDAL and PROJ.
+- PDAL also utilizes and aligns nicely with other open source tools such as [GDAL](https://gdal.org/index.html) and [PROJ](https://proj.org/).
 - Alignment with PROJ results in standardized coordinate system metadata
 
 
@@ -51,17 +52,17 @@ Command Breakdown:
 
 
 ## PDAL Python API
-- Useful to integrate with existing python code.
+- Useful to integrate with existing python code.  Note it requires a conda install:
 
 ```
-import pdal
-print(pdal.__version__)
+conda install -c conda-forge python-pdal
 ```
 
 - Check out the excellent [python API notebook example](https://github.com/adamsteer/f4g-oceania-pdal/blob/master/notebooks/PDAL-python.ipynb) by Dr. Adam Steer for use cases and how to integrate PDAL into your python scripts via the API.
 
 - Sample PDAL Python API commands:
 ```
+import pdal
 pipeline = pdal.Pipeline(json.dumps(pipelineJson))
 pipeline.validate() # check if our JSON and options were good
 count = pipeline.execute() # run the pipeline
@@ -116,7 +117,6 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
                  },
                  {"type" : "writers.las",
                   "filename": "output.laz",
-                  "forward": "header",
                   "compression": "laszip",
                   "a_srs": "EPSG:6339+5703"
                  }
@@ -124,8 +124,6 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
 ```
 
 - each stage or operation will have its own set of options that you can customize. For example, go to [Writers.las documentation](https://pdal.io/en/2.5.3/stages/writers.las.html) to see what options are available when writing out a LAS/LAZ file.
-
-- In this example, note the use of the "forward" option. Setting this option to different values will help preserve header values from the original input file.  For example, it may be beneficial to save the original creation date for a file.
 
 - Pipelines are JSON files that are written out to separate files.  To call the pipeline, specify the [pipeline](https://pdal.io/en/2.5.3/pipeline.html#) command to read in the JSON pipeline and executes the commands:
 
@@ -323,10 +321,24 @@ pdal info ./data/FoxIsland.laz --stats --filters.stats.dimensions=Classification
 
 - Note the counts section displays the lidar classification and its point count per class.
 
+# Classifications <a name ="classifications"></a>
+- The [American Society for Photogrammetry and Remote Sensing](https://www.asprs.org/) has established standardized classification codes for point clouds.  Most common classifications that users encounter:
+   - Ground (class=2)
+   - Low/MedHigh Vegetation (class=3,4,5)
+   - Water (class=9)
+   - etc.
+   
+![ASPRS Point Clouds](./images/ASPRS_Class.png)
+
+- Note that this is an area that is actively developed.  [Most recent developments](https://www.asprs.org/wp-content/uploads/2010/12/LAS_Domain_Profile_Description_Topo-Bathy_Lidar.pdf) have been in establishing classifications codes for topo-bathymetric datasets:
+   - objects suspended in water column
+   - objects at bottom of water column
+   - etc.
+
 # Exercises <a name ="exercises"></a>
 - Inspect the laz files in the ./data directory or download a small dataset of your own from [OpenTopography](https://opentopography.org/)
 - Determine the coordinate system, and classifications present in the data
-- How many returns are there for your dataset?  How many first returns? (hint:use method to get information on Classifications, except replace "Classification" with variable for the Return Number.  Not sure what the Return Number variable name is? Use the schema option to find out)
+- How many returns are there for your dataset?  How many first returns? (hint:use method to get information on Classifications, except replace "Classification" with variable for the Return Number.  Not sure what the "Return Number" variable name is? Use the schema option to find out)
 
 
 
