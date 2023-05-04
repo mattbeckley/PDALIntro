@@ -134,7 +134,7 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
 
 ### Processing Modes
 - PDAL has two modes of data processing: standard or stream mode.  In standard mode all input is read into memory before it is processed.  This is often necessary for operations that need access to all of the points at a given time (e.g. sorting).
-- Stream mode reads and processes chunks, and as a result is much less memory-intensive.
+- Stream mode reads and processes data chunks, and as a result is much less memory-intensive.
 - When using multi-stage pipelines with large datasets, there is the possibility of out-of-memory issues, especially if some of the operations require standard mode.  In these cases, it may be adviseable to break the pipeline into multiple pipelines.
 
 
