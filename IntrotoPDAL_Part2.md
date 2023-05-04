@@ -77,7 +77,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_4326.laz filters.reprojecti
             ]}
 ```
 
-- This will reproject the data to geographic coordinates (Lat/Lon).  Putting the code for the NAVD88 datum in the EPSG code (e.g. 4326+5703) will display the vertical datum info in the metadata.
+- This will reproject the data to geographic coordinates (Lat/Lon).  Including the EPSG code for the NAVD88 datum in the (e.g. 4326+5703) will write the vertical datum info in the metadata.
 
 - PDAL may not always preserve header values, but the "forward" option provides the ability to preserve header values. (e.g. preserving file creation dates)
 
