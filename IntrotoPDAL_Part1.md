@@ -34,7 +34,7 @@ for f in *.laz;do pdal info $f --metadata >> output.txt;done
 ```
 
 ## Dockerized PDAL
-Useful if you want to work avoid OS-specific issues.  Also useful to easily work with different versions of the software: https://hub.docker.com/r/pdal/pdal/tags
+Useful if you want to avoid OS-specific issues.  Also useful to easily work with different versions of the software: https://hub.docker.com/r/pdal/pdal/tags
 
 ```
 docker pull pdal/pdal
