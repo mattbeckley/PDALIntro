@@ -326,7 +326,7 @@ pdal info ./data/FoxIsland.laz --stats --filters.stats.dimensions=Classification
 - Note the counts section displays the lidar classification and its point count per class.
 
 # Classifications <a name ="classifications"></a>
-- The [American Society for Photogrammetry and Remote Sensing](https://www.asprs.org/) has established standardized classification codes for point clouds.  Most common classifications that users encounter:
+- The [ASPRS - American Society for Photogrammetry and Remote Sensing](https://www.asprs.org/) maintains the LAS specification, which among other things sets standardized classification codes for point clouds.  The most common classifications that users will encounter:
    - Ground (class=2)
    - Low/MedHigh Vegetation (class=3,4,5)
    - Water (class=9)
@@ -334,7 +334,7 @@ pdal info ./data/FoxIsland.laz --stats --filters.stats.dimensions=Classification
    
 ![ASPRS Point Clouds](./images/ASPRS_Class.png)
 
-- Note that this is an area that is actively developed.  [Most recent developments](https://www.asprs.org/wp-content/uploads/2010/12/LAS_Domain_Profile_Description_Topo-Bathy_Lidar.pdf) have been in establishing classifications codes for topo-bathymetric datasets:
+- Note that the LAS specification evolves as lidar technology changes and new applications emerge. Presently LAS is at version 1.4. [Most recent developments](https://www.asprs.org/wp-content/uploads/2010/12/LAS_Domain_Profile_Description_Topo-Bathy_Lidar.pdf) have been in establishing classifications codes for topo-bathymetric datasets:
    - objects suspended in water column
    - objects at bottom of water column
    - etc.
