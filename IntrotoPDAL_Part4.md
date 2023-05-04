@@ -6,7 +6,7 @@
 
 
 # Create a Raster <a name ="grid"></a>
-- PDAL has a [writers.GDAL](https://pdal.io/en/2.5.3/stages/writers.gdal.html) writer than uses GDAL to create raster products in a variety of products and formats from input lidar point clouds.
+- PDAL has a [writers.GDAL](https://pdal.io/en/2.5.3/stages/writers.gdal.html) writer than uses [GDAL](https://gdal.org/index.html) to create raster products in a variety of products and formats from input lidar point clouds.
 - The "output_type" parameter allows users to specify the particular variable to grid:
    - Min
    - Max
@@ -16,7 +16,7 @@
    - Stdev (Standard Deviation)
    - All
    
-- Example pipeline to create a Digital Surface Model (DSM) from our test dataset:
+- Example pipeline to create a Digital Surface Model (DSM) from our test dataset (./pipelines/CreateDSM.json):
 
 ```
 {

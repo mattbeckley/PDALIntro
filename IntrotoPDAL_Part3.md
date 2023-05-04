@@ -110,7 +110,7 @@ Here is a snapshot of the data over the Tacoma Narrows Bridge in Washington:
 
 - The first stage of this pipeline is removing any statistical outliers by using the [filters.outlier](https://pdal.io/en/2.5.3/stages/filters.outlier.html). For this example, we are using the statistical filtering method to compute a mean distance from each point to its nearest neighbors and compare that with a global threshold value (calculated from the mean of all distances).  There are a variety of options to adjust the calculations of the threshold and other parameters.
 
-- The second stage of the pipeline performs a range filter.  First it includes only classes that are **NOT (note the "!")** in the range of 135 - 146.  Then it include only elevation values in the range of -10 to 3000.  
+- The second stage of the pipeline performs a range filter.  First it includes only classes that are **NOT (note the "!")** in the range of 135 - 146.  Then it includes only elevation values in the range of -10 to 3000.  
 
 - Run the pipeline and check the classifications:
 
@@ -237,7 +237,7 @@ pdal info FoxIsland_Clean.laz --stats --filters.stats.dimensions=Classification 
              ]}
 ```
 
-- Using the "point" and "distance" parameters, users can also clip a buuffer around a specified point.  For more advanced use-cases of the clipping function, see https://pdal.io/en/2.5.3/tutorial/clipping/index.html#clipping
+- Using the "point" and "distance" parameters, users can also clip a buffer around a specified point.  For more advanced use-cases of the clipping function, see https://pdal.io/en/2.5.3/tutorial/clipping/index.html#clipping
     
 
 # Ground Classifications <a name ="ground"></a>
@@ -326,8 +326,7 @@ pdal info FoxIsland_Clean.laz --stats --filters.stats.dimensions=Classification 
 
 
 # Exercises<a name ="exercises"></a>
-- Examine some of the sample LAS/LAZ datasets (or your own) in QGIS or [plas.io](https://plas.io/)
-- For sample datasets: OR_WizardIsland.laz or FoxIsland.laz try to output a ground-only laz file
- 
+- Explore the visualization of some of the sample LAS/LAZ datasets (or your own) in QGIS or [plas.io](https://plas.io/)
+- For sample datasets, or a dataset of your own, create a ground-only laz file from scratch (use ./pipelines/CreateGround.json as a guide)
 
 

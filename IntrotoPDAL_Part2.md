@@ -42,7 +42,7 @@
     - COPC
     - etc.
     
-- [PDAL Writers] can also write out a variety of formats.  Most users will usually stick with LAS/LAZ/text, but writers can also write out GeoJSON format, as well as leveraging GDAL to write out raster products, which will be discussed later in the workshop
+- [PDAL Writers](https://pdal.io/en/latest/stages/writers.html) can also write out a variety of formats.  Most users will usually stick with LAS/LAZ/text, but writers can also write out GeoJSON format, as well as leveraging GDAL to write out raster products, which will be discussed later in the workshop
 
 
 # Reprojection <a name ="reprojection"></a>
@@ -193,7 +193,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters
 - Utilizing the info command, the boundary of a dataset can be obtained by simply using the "--boundary" flag.  This will output the boundary in WKT format in JSON-formatted output. Note that this boundary command also outputs point density ("avg_pt_per_sq_unit") and point spacing ("avg_pt_spacing") which are useful datasets metrics.
 
 ```
->> pdal info ./data/Siuslaw.laz --boundary 
+pdal info ./data/Siuslaw.laz --boundary 
 
 {
   "boundary":
@@ -222,7 +222,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters
 - However, to get a boundary in vector format to visualize in a GIS or Google Earth requires some additional steps.  The PDAL command, [tindex](https://pdal.io/en/2.5.3/apps/tindex.html#tindex-command) is used to create a boundary that utilizes the [hexbin filter](https://pdal.io/en/2.5.3/stages/filters.hexbin.html#filters-hexbin)
 
 ```
->> pdal tindex create --tindex ./data/Siuslaw_bounds.shp --filespec ./data/Siuslaw.laz -f "ESRI Shapefile"
+pdal tindex create --tindex ./data/Siuslaw_bounds.shp --filespec ./data/Siuslaw.laz -f "ESRI Shapefile"
 ```
 
 - Load the shapefile into a GIS to see its extent:
@@ -232,7 +232,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters
 - For rough estimations of boundaries, this is usually sufficient. To obtain a more precise fit of the data alter some of the parameters in the [filters.hexbin](https://pdal.io/en/2.5.3/stages/filters.hexbin.html#filters-hexbin) command.  The "edge_size" parameter is particularly useful for this scenario as it controls the size of the hexagon boundaries used to estimate whether a section of the dataset should be considered. Finding an appropriate value for edge_size can be an iterative process.  For example, try using a value of "50" units (for this dataset, the units are feet).
 
 ```
->> pdal tindex create --tindex ./data/Siuslaw_bounds50.shp --filters.hexbin.edge_size=50 --filespec ./data/Siuslaw.laz -f "ESRI Shapefile"
+pdal tindex create --tindex ./data/Siuslaw_bounds50.shp --filters.hexbin.edge_size=50 --filespec ./data/Siuslaw.laz -f "ESRI Shapefile"
 
 ```
 
@@ -240,6 +240,20 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters
 ![Siuslaw Bounds_Fit](./images/SiuslawRiverBounds_Fit.png)
 
 - Note how this is a much better fit to the data, and shows regions where there is no data (over the water). However, use caution with the edge_size parameter as setting it too low might not capture an appropriate amount of data, and mis-represent the data coverage.  
+
+## Output Formats
+- PDAL utilizes GDAL drivers to output to a variety of vector (and raster) formats.  To output a vector dataset in a different format refer to the [GDAL vector driver documentation](https://gdal.org/drivers/vector/index.html) to get a list of valid output driver names. 
+
+- For example to output the boundary as a KML:
+```
+pdal tindex create --tindex ./data/Siuslaw_bounds50.kml --filters.hexbin.edge_size=50 --filespec ./data/Siuslaw.laz -f "KML"
+
+```
+
+- or as a geoJSON file:
+```
+pdal tindex create --tindex ./data/Siuslaw_bounds50.geojson --filters.hexbin.edge_size=50 --filespec ./data/Siuslaw.laz -f "GeoJSON"
+```
 
 
 ## Point Density
@@ -271,8 +285,29 @@ pdal density --filters.hexbin.edge_size=50 ./data/Siuslaw.laz -o ./data/Siuslaw_
   - Thin the dataset and compare the point count and point density for the orginal dataset with the thinned verison.
   - Reproject the dataset into a UTM projection that is meter-based (e.g. UTM Zone 10N (EPSG:26910))
   - Build a boundary from the modified dataset 
-  - Note: ./pipelines/Part2_Exercise.json will get you started
+  - Note: ./pipelines/Part2_Exercise.json will get you started.
   
+## Scripting Workflows
+- In some cases, it is not obvious how to include an operation in a pipeline (e.g. density, tindex, etc).  In these cases it may be helpful to put the commands into a script.  
+
+```
+#!/usr/bin/env bash
+
+#Call the pipeline to thin and reproject the data
+pdal pipeline ./pipelines/Part2_Exercise.json
+
+#call the command to create a boundary from the thinned datasets
+pdal tindex create --tindex ./data/Siuslaw_bounds50.shp --filters.hexbin.edge_size=50 --filespec ./data/Siuslaw_UTM10N.laz -f "ESRI Shapefile"
+```
+  
+- If not familiar with scripting, you must first make the script executable: 
+```
+chmod 744 script_name.bash
+```
+- To run the script
+```
+sh script_name.bash
+```
  
 
 

@@ -131,11 +131,20 @@ pdal translate input_4326.laz output_UTM10N.laz reprojection --filters.reproject
 >> pdal pipeline ./pipeline/pipeline_example.json
 ```
 
+- To get more detail on how PDAL is processing the workflow, add the --debug option
+
+```
+>> pdal pipeline ./pipeline/pipeline_example.json --debug
+```
+
 
 ### Processing Modes
 - PDAL has two modes of data processing: standard or stream mode.  In standard mode all input is read into memory before it is processed.  This is often necessary for operations that need access to all of the points at a given time (e.g. sorting).
 - Stream mode reads and processes data chunks, and as a result is much less memory-intensive.
 - When using multi-stage pipelines with large datasets, there is the possibility of out-of-memory issues, especially if some of the operations require standard mode.  In these cases, it may be adviseable to break the pipeline into multiple pipelines.
+
+### Nomenclature
+- All point data in PDAL is stored as a set of dimensions. Dimensions have a name and a data type. The data type is determined at runtime, and a default data type is assigned.  Details on dimensions are [here](https://pdal.io/en/latest/dimensions.html)
 
 
 # Inspecting a file <a name ="inspect"></a>
@@ -197,6 +206,7 @@ pdal info --metadata ./data/OR_WizardIsland.laz
     - min/max of XYZ values
     
 - The scale_x, scale_y, and scale_z help determine the precision of the data. LAS stores XYZ values as 32-bit integers, and then applies the scale values to obtain the appropriate precision.  If these parameters are set to an unrealistic value, it could create unnecessarily large files when converting from LAS to LAZ (see article on [LASzip](https://www.cs.unc.edu/~isenburg/lastools/download/laszip.pdf))
+
 
 ## Schema
 - Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the **--schema** flag to obtain the schema for a given dataset:
