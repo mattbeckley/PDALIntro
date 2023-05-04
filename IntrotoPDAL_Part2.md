@@ -42,7 +42,7 @@
     - COPC
     - etc.
     
-- [PDAL Writers] can also write out a variety of formats.  Most users will usually stick with LAS/LAZ/text, but writers can also write out geoJSON format, as well as leveraging GDAL to write out raster products, which will be discussed later in the workshop
+- [PDAL Writers] can also write out a variety of formats.  Most users will usually stick with LAS/LAZ/text, but writers can also write out GeoJSON format, as well as leveraging GDAL to write out raster products, which will be discussed later in the workshop
 
 
 # Reprojection <a name ="reprojection"></a>
