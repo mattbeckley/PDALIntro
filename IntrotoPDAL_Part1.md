@@ -240,32 +240,36 @@ Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) to get basic
 pdal info ./data/FoxIsland.laz -p 0
 
 {
-  "file_size": 27167488,
-  "filename": "./data/OR_WizardIsland.laz",
-  "now": "2023-04-19T13:00:12-0600",
+  "file_size": 18337307,
+  "filename": "./data/FoxIsland.laz",
+  "now": "2023-05-04T12:58:26-0600",
   "pdal_version": "2.5.3 (git-version: Release)",
   "points":
   {
     "point":
     {
-      "Classification": 2,
+      "Blue": 0,
+      "Classification": 1,
       "EdgeOfFlightLine": 0,
-      "GpsTime": 500486.8319,
-      "Intensity": 49,
-      "NumberOfReturns": 1,
+      "GpsTime": 270593867.2,
+      "Green": 0,
+      "Intensity": 47688,
+      "NumberOfReturns": 3,
       "PointId": 0,
-      "PointSourceId": 558,
-      "ReturnNumber": 1,
-      "ScanAngleRank": 0,
-      "ScanDirectionFlag": 1,
-      "UserData": 120,
-      "X": 870920.64,
-      "Y": 438092.59,
-      "Z": 6638.35
+      "PointSourceId": 59,
+      "Red": 0,
+      "ReturnNumber": 3,
+      "ScanAngleRank": -8,
+      "ScanDirectionFlag": 0,
+      "UserData": 0,
+      "X": 527495.82,
+      "Y": 5233371.48,
+      "Z": 44.04
     }
   },
   "reader": "readers.las"
 }
+
 
 ```
 
