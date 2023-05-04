@@ -190,7 +190,7 @@ pdal translate ./data/FoxIsland.laz ./data/FoxIsland_Thin1m.laz sample --filters
     
 
 # Creating boundaries of data <a name ="boundary"></a>
-- Utilizing the info command, the boundary of a dataset can be obtained by simply using the "--boundary" flag.  This will output the boundary in WKT format in JSON-formatted output.
+- Utilizing the info command, the boundary of a dataset can be obtained by simply using the "--boundary" flag.  This will output the boundary in WKT format in JSON-formatted output. Note that this boundary command also outputs point density ("avg_pt_per_sq_unit") and point spacing ("avg_pt_spacing") which are useful datasets metrics.
 
 ```
 >> pdal info ./data/Siuslaw.laz --boundary 
