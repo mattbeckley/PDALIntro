@@ -7,7 +7,7 @@
 6. [Exercises](#exercises)
 
 # File I/O <a name ="fileIO"></a>
-- PDAL is often utilized to work with lidar files which are typically [LAS](https://www.asprs.org/divisions-committees/lidar-division/laser-las-file-format-exchange-activities#:~:text=The%20LAS%20file%20format%20is,x%2Cy%2Cz%20tuplet.) or LAZ formats.  However, sometimes files are provided as XYZ text.  PDAL can read/write in a variety of formats, and is useful for doing basic file I/O operations.
+- PDAL is often utilized to work with lidar files which are typically [LAS](https://www.asprs.org/divisions-committees/lidar-division/laser-las-file-format-exchange-activities#:~:text=The%20LAS%20file%20format%20is,x%2Cy%2Cz%20tuplet.) or LAZ formats.  However, sometimes files are provided as XYZ text or other less common format.  PDAL can read/write in a variety of formats, and is useful for doing basic file I/O operations.
 
 
 ```
