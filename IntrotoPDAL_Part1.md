@@ -11,7 +11,7 @@
 ![PDAL Logo](./images/PDAL_Logo.png)
 
 - PDAL is one of the few open source tools to work with point cloud data
-- LasTools is "mostly" free, but advanced usage requires payment.
+- LAStools is partially free & open source, but advanced usage requires a license.
 - PDAL also utilizes and aligns nicely with other open source tools such as [GDAL](https://gdal.org/index.html) and [PROJ](https://proj.org/).
 - Alignment with PROJ results in standardized coordinate system metadata
 
