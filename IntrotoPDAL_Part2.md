@@ -268,7 +268,7 @@ pdal density --filters.hexbin.edge_size=50 ./data/Siuslaw.laz -o ./data/Siuslaw_
 
 # Exercises <a name ="exercises"></a>
 - Using the Siuslaw sample dataset (or a dataset of your own) try to do the following:
-  - Thin the dataset 
+  - Thin the dataset and compare the point count and point density for the orginal datasets compared to the thinned verison.
   - Reproject the dataset into a UTM projection that is meter-based (e.g. UTM Zone 10N (EPSG:26910))
   - Build a boundary from the modified dataset 
   - Note: ./pipelines/Part2_Exercise.json will get you started
