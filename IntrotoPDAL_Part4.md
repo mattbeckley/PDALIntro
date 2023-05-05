@@ -234,10 +234,23 @@ Band 1 Block=187x5 Type=Float64, ColorInterp=Gray
     STATISTICS_VALID_PERCENT=96.66
 ```
 
-- Note that when calculating the min value with a smaller cell size for a ground-classified data, there may be gaps in the data.  
-
 - If we load this raster into QGIS and apply a hillshade visualization, we get:
 ![Fox Island DTM](./images/FoxIsland_DTM.png)
+
+## Missing Data
+- Note that when calculating the min value with a smaller cell size for a ground-classified data, there may be gaps in the data.  GDAL has a useful tool called, [gdal_fillnodata.py](https://gdal.org/programs/gdal_fillnodata.html) to fill in gaps in datasets by interpolating data from the edges of missing areas.
+
+```
+gdal_fillnodata.py -si 2 ./data/FoxIsland_DTM.tif ./data/FoxIsland_DTM_Fill.tif
+```
+
+- By default the algorithm uses a 100 pixel distance to search for pixel values to use with the interpolation, but this distance can be customized with the "-md" option.  
+- The -si option is the number of times to run a 3x3 averaging filter over the interpolated area to dampen artifacts.
+
+![NoData Filled](./images/DTM_NoDataFilled.png)
+
+- Using the above command does a pretty good job of filling the NoData areas.  Image on the left is the filled/smoothed DTM, image on the right is the original DTM with data gaps.  Note that the algorithm does not alter existing values, but only interpolated and smooths the area of missing data.
+
 
 # Raster Math <a name ="raster_math"></a>
 - use GDAL raster calculator to difference the DSM and DTM to create a CHM
@@ -255,7 +268,9 @@ Traceback (most recent call last):
 Exception: Error! Dimensions of file FoxIsland_DTM.tif (187, 196) are different from other files (188, 197).  Cannot proceed
 ```
 
-- It appears the sizes of the two datasets are different:
+- With gdal_calc, datasets are assigned a letter, and then the letters are used as variable names within the **--calc** option to run a numpy calculation
+
+- The first attempt at creating a CHM failed because it appears the sizes of the two datasets are different:
 
 ```
 >> gdalinfo ./data/FoxIsland_DSM.tif|grep -i Size
@@ -320,6 +335,11 @@ gdaldem slope ./data/DevilsTower_Ground.tif ./data/DevilsTower_Ground_Slope.tif
 - Try creating a grid of intensity values, and output as a [COG.](https://www.cogeo.org/) (see Part4_Exercise.json)
 - Create a hillshade grid with a custom elevation or azimuth angle.  Or create an aspect grid.  Refer to [gdaldem docs](https://gdal.org/programs/gdaldem.html) for available parameters.
 - Using either existing datasets or one of your own, create a Canopy Height Model from a lidar point cloud.
+- Do a comparison of ground classifications for a dataset of your choice:
+   - Create a ground-classified DTM from vendor-provided ground classifications (class=2)
+   - Create a custom ground-classified DTM from scratch
+   - Use GDAL raster math to difference the two ground classifications
+   - Visualize the DTMs, and difference grids in QGIS.
  
 
 
