@@ -23,8 +23,7 @@
 
 - PDAL provides an [entwine reader](https://pdal.io/en/2.5.3/stages/readers.ept.html#readers-ept) that can easily read the USGS 3DEP data in EPT format. With a simple pipeline, it is fairly straightforward to subset the data from the AWS entwine bucket for a given dataset.  
 
-- For example, to grab USGS 3DEP lidar data of the Statue of Liberty:
-
+- For example, to grab USGS 3DEP lidar data of the Statue of Liberty (./pipelines/StatueLiberty.json):
 ```
 {
   "pipeline": [
@@ -46,24 +45,24 @@
 
 ![Entwine IO Site](./images/EntwineIO_Site.png)
 
-   2. Using [AWS CLI tools](https://aws.amazon.com/cli/), you can can a listing of the datasets from the command line by doing:
+   2. Using [AWS CLI tools](https://aws.amazon.com/cli/), you can get a listing of the datasets from the command line by doing:
    ```
    aws s3 ls --no-sign-request s3://usgs-lidar-public/
    ```
 
    3. Use [OpenTopography](https://portal.opentopography.org/dataCatalog?group=usgs) to get a listing. **Note** we remove the underscores from the names, so these need to be re-added to the EPT URL in the pipeline.
    
-   4. The USGS has been migrating the metadata to AWS.  There is a [listing of 3DEP projects](http://prdtnm.s3.amazonaws.com/index.html?prefix=StagedProducts/Elevation/LPC/Projects/), but use caution.  Technically, the entwine AWS bucket is a separate project, and the processing schedule may be different than the "user-pays" bucket.  This can result in data existing in one bucket, but not the other.  Also, on rare occasions, there could be discrepancies in dataset naming conventions that can cause issues.  However, overall it is a good resource to find out more about each of the datasets.
+   4. The USGS has been migrating the metadata to AWS.  There is a [listing of 3DEP projects](http://prd-tnm.s3.amazonaws.com/index.html?prefix=StagedProducts/Elevation/LPC/Projects/), but use caution.  Technically, the entwine AWS bucket is a separate project, and the processing schedule may be different than the "user-pays" bucket.  This can result in data existing in one bucket, but not the other.  Also, on rare occasions, there could be discrepancies in dataset naming conventions that can cause issues.  However, overall it is a good resource to find out more about each of the datasets.
    
 ## Dataset Bounds
-- As part of the conversion of the USGS 3DEP data to the entwine format, HOBU took steps to standardize the datasets. All data had their horizontal coordinate reference system (CRS) converted to web mercator ([EPSG:3857](https://epsg.io/3857)).  Vertical coordinate systems were converted to meters, but were not transformed and were left in their original vertical CRS.  This can sometimes lead to confusion as metadata for some datasets will report units in feet, but the entwine datasets have been converted to meters.
+- As part of the conversion of the USGS 3DEP data to the entwine format, [HOBU](https://hobu.co/) took steps to standardize the datasets. All data had their horizontal coordinate reference system (CRS) converted to web mercator ([EPSG:3857](https://epsg.io/3857)).  Vertical coordinate systems were converted to meters, but were not transformed and were left in their original vertical CRS.  This can sometimes lead to confusion as metadata for some datasets will report units in feet, but the entwine datasets have been converted to meters.
 
 - Because of the size of the 3DEP datasets, and the fact that these are cloud-based resources, it is necessary to subset the data.  The easiest way to do this is with the "bounds" parameter to the [entwine reader](https://pdal.io/en/2.5.3/stages/readers.ept.html#readers-ept).  The bounds are expressed as a string, e.g.: ([xmin, xmax], [ymin, ymax], [zmin, zmax]). If omitted, the entire dataset will be selected. 
 
 - It is probably not obvious to most users what the web-mercator coordinates are for a given area of interest. There are many hacks to get around this, here are a couple:
    1.  Use [OpenTopography](https://portal.opentopography.org/dataCatalog?group=usgs). Even if you don't want to run the job through OpenTopo, you can select an area, and get the web mercator bounds that can then be used in a custom, local pipeline:
    ![OpenTopo Get Web Mercator Coords](./images/OT_get3857.png)
-   2. Use QGIS with a basemap. Open Web --> Quick Map Services --> Search QMS.  In the search dialog, enter "google" or "bing" to search for a favorite basemap. Change the basemap projection to Web Mercator by clicking the buttin in the lower-right of the application, and set it to EPSG:3857.  Toggle the mouse position display, and it will show the extent of the map in Web Mercator coordinates.  Copy and paste these coordinates into your pipeline.  **Note** QGIS outputs the coordinates in [xmin,ymin],[xmax,ymax] which is a different convention than the PDAL bounds option, so use caution when pasting the coordinates.
+   2. Use QGIS with a basemap. Open Web --> Quick Map Services --> Search QMS.  In the search dialog, enter "google" or "bing" to search for a favorite basemap. Change the basemap projection to Web Mercator by clicking the button in the lower-right of the application, and set it to EPSG:3857.  Toggle the mouse position display, and it will show the extent of the map in Web Mercator coordinates.  Copy and paste these coordinates into your pipeline.  **Note** QGIS outputs the coordinates in [xmin,ymin],[xmax,ymax] which is a different convention than the PDAL bounds option, so use caution when pasting the coordinates.
    ![QGIS get 3857 Extent](./images/QGIS_3857Extent.png)
    3. The "bounds" parameter for [entwine reader](https://pdal.io/en/2.5.3/stages/readers.ept.html#readers-ept) can be followed by a slash (‘/’) and a spatial reference specification to apply to the bounds. In this manner, users can specify a more memorable coordinate system such as lat/lon values to subset the data.  For example, the pipeline below uses lat/lon coordinates ([EPSG:4326])(https://epsg.io/4326) to subset the ept resource that is in Web Mercator:
 
@@ -104,7 +103,7 @@
 - Based on the basic PDAL tutorials, we can apply additional processing stages to any of the datasets from the USGS 3DEP collection
 
 The following pipeline does the following:
-- Extract data over Devil's Tower Wyoming from the AWS enwtine bucket
+- Extract data over [Devil's Tower Wyoming](https://portal.opentopography.org/usgsDataset?dsid=WY_FEMA_East_B3_2019) from the AWS enwtine bucket
 - Reproject the data from the default Web Mercator to UTM Zone 13N
 - Filter the data to just use ground-classified points
 - Write out a ground-classified LAZ file
@@ -151,4 +150,4 @@ from ./pipelines/DevilsTower.json
 
 # Exercises <a name ="exercises"></a>
 - Try to download data directly from the AWS entwine bucket for an area of your choice. Experiment with building your own pipelines. 
-- If possible, work through the [OpenTopography notebook: 01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) to generate a DEM from the USGS 3DEP data.
+- To get more familiar with the PDAL Python API and more advanced workflows, work through the [OpenTopography notebook: 01_3DEP_Generate_DEM_User_AOI.ipynb](https://github.com/OpenTopography/OT_3DEP_Workflows/blob/main/notebooks/01_3DEP_Generate_DEM_User_AOI.ipynb) to generate a DEM from the USGS 3DEP data.
