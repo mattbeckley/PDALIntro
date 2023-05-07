@@ -4,4 +4,4 @@ For the final ~1.25 hours of the workshop, participants will be asked to take wh
 
 As we near the end of the session, we'll ask you to upload a couple of screen captures / images / brief summary of what you did, and what you learned. Show us pretty pictures, successes, failures, problems, challenges, etc. The point is to share with each other and learn from each other's experiences.
 
-- [Upload your explorations HERE]([https://drive.google.com/drive/folders/1xxtLaG15HNpA0CR8q81_snCckFDB9ubv?usp=sharing]) (please put your name in the file name)
+- [Upload your explorations HERE](https://drive.google.com/drive/folders/1xxtLaG15HNpA0CR8q81_snCckFDB9ubv?usp=sharing) (please put your name in the file name)
