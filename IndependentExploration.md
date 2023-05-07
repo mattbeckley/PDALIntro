@@ -14,4 +14,5 @@ As we near the end of the session, we'll ask you to upload a couple of screen ca
    - Create a custom ground-classified DTM from scratch
    - Use GDAL raster math to difference the two DTMs so you can see the effect on representatio of bare earth.
    - Visualize the DTMs and difference grids in QGIS.
-- Create a Canopy Height Model from a lidar point cloud for an area of interest to you.
+- Create a Canopy Height Model from a lidar point cloud for an area of interest to you. Try the [filters.hag_delaunay](https://pdal.io/en/latest/stages/filters.html by height above ground.
+- Dig into the PDAL docs and try a filter or application that looks interesting that we haven'y explored today.
