@@ -97,8 +97,6 @@ git clone https://github.com/OpenTopography/OT_3DEP_Workflows
 cd OT_3DEP_Workflows
 conda env create -n 3dep --file environment.yml
 conda activate 3dep
-pip install --user ipykernel
-python -m ipykernel install --user --name=3dep
 ```
 
 # Troubleshooting <a name ="troubleshooting"></a>
@@ -143,6 +141,11 @@ conda activate pdalworkshop
 ```
 conda deactivate 
 ```
+- To remove a workspace:
+```
+conda env remove --name sample_workspace
+```
+
 - To get a list of the environments created on your system:
 ```
 conda info --envs

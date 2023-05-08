@@ -295,7 +295,7 @@ pdal info ./data/FoxIsland.laz -p 0-10|grep  "Z"|awk '{print $2}' FS=': '
 pdal info ./data/FoxIsland.laz -p 0-10|jq -r .points.point[].Z
 ```
 
-## Attribute Statistics.
+## Dimension Statistics.
 Use the [info application](https://pdal.io/en/2.4.3/apps/info.html) with the --stats flag and perform filtering to get a summary of a given attribute for a given lidar file. For example to get a list of all the point classifications and their counts:
 
 ```
